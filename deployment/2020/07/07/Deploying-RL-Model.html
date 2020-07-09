@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      4 min read
+      7 min read
     
 </span></p>
 
@@ -118,6 +118,10 @@ window.onload = wrap_img;
 <ul>
 <li class="toc-entry toc-h3"><a href="#Step-1-—-Fetching-code-and-checking-for-changes">Step 1 — Fetching code and checking for changes </a></li>
 <li class="toc-entry toc-h3"><a href="#Step-2---Fortify">Step 2 - Fortify </a></li>
+<li class="toc-entry toc-h3"><a href="#Step-3---Docker">Step 3 - Docker </a></li>
+<li class="toc-entry toc-h3"><a href="#Step-4---Aquasec">Step 4 - Aquasec </a></li>
+<li class="toc-entry toc-h3"><a href="#Step-5-—-Kubernetes">Step 5 — Kubernetes </a></li>
+<li class="toc-entry toc-h3"><a href="#Step-6-—-Performance-test">Step 6 — Performance test </a></li>
 </ul>
 </li>
 </ul><!--
@@ -270,6 +274,261 @@ Our team's goal is to increase engagement within the app. The first step was to 
 <a class="anchor" href="#Step-2---Fortify" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 2 - Fortify<a class="anchor-link" href="#Step-2---Fortify"> </a>
 </h3>
 <p>Next step is to run complete code static security scanning by Fortify</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#hide_output</span>
+<span class="n">sh</span> <span class="s1">'''</span>
+<span class="s1">      echo "=================================================="</span>
+<span class="s1">      echo "========--- SAST - Fortify Scan: Start ---========"</span>
+<span class="s1">      echo "=================================================="</span>
+<span class="s1">      hostname</span>
+<span class="s1">      whoami</span>
+<span class="s1">      ls -ahl</span>
+<span class="s1">      echo 'WORKSPACE: ' $WORKSPACE</span>
+<span class="s1">      cd $WORKSPACE</span>
+<span class="s1">      pwd</span>
+<span class="s1">      sourceanalyzer -v</span>
+<span class="s1">      sourceanalyzer -b $</span><span class="si">{fortify_app_name}</span><span class="s1"> -clean</span>
+<span class="s1">      sourceanalyzer -b $</span><span class="si">{fortify_app_name}</span><span class="s1"> -python-version $</span><span class="si">{python_version}</span><span class="s1"> -python-path $</span><span class="si">{python_path}</span><span class="s1"> $</span><span class="si">{fortify_scan_files}</span><span class="s1"></span>
+<span class="s1">      sourceanalyzer -b $</span><span class="si">{fortify_app_name}</span><span class="s1"> -scan -f $</span><span class="si">{fortify_app_name}</span><span class="s1">.fpr</span>
+<span class="s1">      fortifyclient -url https://sast.intranet.asia/ssc -authtoken "$</span><span class="si">{fortify_upload_token}</span><span class="s1">" uploadFPR -file $</span><span class="si">{fortify_app_name}</span><span class="s1">.fpr -project $</span><span class="si">{fortify_app_name}</span><span class="s1"> -version $</span><span class="si">{fortify_app_version}</span><span class="s1"></span>
+<span class="s1">     '''</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Step-3---Docker">
+<a class="anchor" href="#Step-3---Docker" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 3 - Docker<a class="anchor-link" href="#Step-3---Docker"> </a>
+</h3>
+<p>The next step is to build the docker image. We first login to Artifactory before initiating the build as our pip libraries are also pulled from mirrored pip in the Artifactory. I have provided a sample of code on how we achieve this.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#hide_output</span>
+<span class="n">sh</span> <span class="s2">"""</span>
+<span class="s2">                echo $</span><span class="si">{ARTIFACTORY_PASSWORD}</span><span class="s2"> | docker login -u $</span><span class="si">{ARTIFACTORY_USERNAME}</span><span class="s2"> --password-stdin docker-registry:8443</span>
+<span class="s2">                cd generator</span>
+<span class="s2">                docker build --file Docker-dev </span><span class="se">\</span>
+<span class="s2">                 --build-arg HTTPS_PROXY=http://ip-address </span><span class="se">\</span>
+<span class="s2">                 --build-arg ARTIFACTORY_USERNAME=$</span><span class="si">{ARTIFACTORY_USERNAME}</span><span class="s2"> </span><span class="se">\</span>
+<span class="s2">                 --build-arg ARTIFACTORY_PASSWORD=$</span><span class="si">{ARTIFACTORY_PASSWORD}</span><span class="s2"> </span><span class="se">\</span>
+<span class="s2">                 -t $</span><span class="si">{env.generator_image_latest}</span><span class="s2"> .</span>
+<span class="s2">                docker tag $</span><span class="si">{env.generator_image_latest}</span><span class="s2"> $</span><span class="si">{env.generator_image_name}</span><span class="s2"></span>
+<span class="s2">                docker push $</span><span class="si">{env.generator_image_latest}</span><span class="s2"></span>
+<span class="s2">                docker push $</span><span class="si">{env.generator_image_name}</span><span class="s2"></span>
+<span class="s2">                docker logout docker-pcaaicoe.pruregistry.intranet.asia:8443</span>
+<span class="s2">                cd ..</span>
+<span class="s2">    """</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Step-4---Aquasec">
+<a class="anchor" href="#Step-4---Aquasec" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 4 - Aquasec<a class="anchor-link" href="#Step-4---Aquasec"> </a>
+</h3>
+<p>After pushing an image into Artifactory, the next important and mandatory step to be performed is docker image security scanning.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#hide_output</span>
+    <span class="n">sh</span> <span class="s2">"""</span>
+<span class="s2">         echo "=================================================="</span>
+<span class="s2">         echo "=============--- OSS - Nexus Scan ---============="</span>
+<span class="s2">         echo "=================================================="</span>
+<span class="s2">                docker save -o generator-dev.tar $</span><span class="si">{env.generator_image_latest}</span><span class="s2"></span>
+<span class="s2">                """</span>
+                <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">nexusscan</span><span class="p">(</span><span class="s2">"pcaaicoeaipulsenudgesgeneratordev"</span><span class="p">,</span> <span class="s2">"$WORKSPACE"</span><span class="p">,</span> <span class="s2">"build"</span><span class="p">);</span>
+                <span class="n">echo</span> <span class="n">result</span><span class="p">;</span>
+                <span class="n">sh</span> <span class="s2">"""</span>
+<span class="s2">                rm -f generator-dev.tar</span>
+<span class="s2">                """</span>
+                <span class="n">sh</span> <span class="s2">"""</span>
+<span class="s2">                echo "=================================================="</span>
+<span class="s2">                echo "=============--- CSEC - Aquasec Scan ---=========="</span>
+<span class="s2">                echo "=================================================="</span>
+<span class="s2">    """</span>
+                <span class="n">aquasecscan</span><span class="p">(</span><span class="s2">"$</span><span class="si">{env.generator_image_latest}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The code and image security scanning stages are major milestones to be cleared during the deployment phase. It is important as well as difficult to explain and agree between application security teams about what risks are we willing to take while allowing open source libraries with bugs to go live in our environment.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Step-5-—-Kubernetes">
+<a class="anchor" href="#Step-5-%E2%80%94-Kubernetes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 5 — Kubernetes<a class="anchor-link" href="#Step-5-%E2%80%94-Kubernetes"> </a>
+</h3>
+<p>Now we move on to the stage where we will be able to actually deploy and run our images. In order to deploy our solution, we need a Redis DB and Kafka cluster up and running. We deploy our docker images using the below code:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#hide_output</span>
+<span class="n">sh</span> <span class="s1">'''</span>
+<span class="s1">            set +x</span>
+<span class="s1">            echo "---- preparing options ----"</span>
+<span class="s1">            export HTTPS_PROXY=ip-address:8080</span>
+<span class="s1">            export KUBE_NAMESPACE="internal-namespace"</span>
+<span class="s1">            export KC_OPTS=$</span><span class="si">{KC_OPTS}</span><span class="s1">" --kubeconfig=$</span><span class="si">{KUBE_CONFIG}</span><span class="s1">"</span>
+<span class="s1">            export KC_OPTS=$</span><span class="si">{KC_OPTS}</span><span class="s1">" --insecure-skip-tls-verify=true"</span>
+<span class="s1">            export KC_OPTS=$</span><span class="si">{KC_OPTS}</span><span class="s1">" --namespace=$</span><span class="si">{KUBE_NAMESPACE}</span><span class="s1">"</span>
+<span class="s1">            </span>
+<span class="s1">            echo "---- prepared options ----"</span>
+<span class="s1">            echo "---- preparing alias ----"</span>
+<span class="s1">            alias kc="kubectl $</span><span class="si">{KC_OPTS}</span><span class="s1"> $*"</span>
+<span class="s1">            echo "---- alias prepared ----"</span>
+<span class="s1">            </span>
+<span class="s1">            echo "---- applying manifest ----"</span>
+<span class="s1">   </span>
+<span class="s1">   </span>
+<span class="s1">           kc apply -f configmap.yaml</span>
+
+<span class="s1">           if [ $which_app = "generator" ];then</span>
+<span class="s1">             if [ $image_version = "latest" ];then</span>
+<span class="s1">               kc delete deploy ai-pulse-nudges-events-reader||echo</span>
+<span class="s1">             fi</span>
+<span class="s1">             sed -i "s!GENERATOR_VERSION!$image_version!g" "generator.yaml"</span>
+<span class="s1">             kc apply -f generator.yaml</span>
+<span class="s1">           fi  </span>
+
+<span class="s1">           if [ $which_app = "aggregator" ];then</span>
+<span class="s1">             if [ $image_version = "latest" ];then</span>
+<span class="s1">               kc delete deploy ai-pulse-nudges-click-counter||echo</span>
+<span class="s1">             fi</span>
+<span class="s1">             sed -i "s!AGGREGATOR_VERSION!$image_version!g" "aggregator.yaml"</span>
+<span class="s1">             kc apply -f aggregator.yaml</span>
+<span class="s1">           fi</span>
+
+<span class="s1">           if [ $which_app = "detector" ];then</span>
+<span class="s1">             if [ $image_version = "latest" ];then</span>
+<span class="s1">               kc delete deploy ai-pulse-nudges-engine||echo</span>
+<span class="s1">             fi</span>
+<span class="s1">             sed -i "s!DETECTOR_VERSION!$image_version!g" "detector.yaml" </span>
+<span class="s1">             kc apply -f detector.yaml</span>
+<span class="s1">           fi</span>
+
+<span class="s1">           if [ $which_app = "restapi" ];then</span>
+<span class="s1">             if [ $image_version = "latest" ];then</span>
+<span class="s1">               kc delete deploy ai-pulse-nudges-restapi||echo</span>
+<span class="s1">                fi</span>
+<span class="s1">             sed -i "s!REST_VERSION!$image_version!g" "restapi.yaml"</span>
+<span class="s1">             kc apply -f restapi.yaml</span>
+<span class="s1">                    fi</span>
+<span class="s1">            if [ $which_app = "all" ];then</span>
+<span class="s1">             if [ $image_version = "latest" ];then</span>
+<span class="s1">             kc delete deploy ai-pulse-nudges-events-reader||echo</span>
+<span class="s1">             kc delete deploy ai-pulse-nudges-click-counter||echo</span>
+<span class="s1">             kc delete deploy ai-pulse-nudges-engine||echo</span>
+<span class="s1">             kc delete deploy ai-pulse-nudges-restapi||echo</span>
+<span class="s1">             fi</span>
+
+<span class="s1">             sed -i "s!GENERATOR_VERSION!$image_version!g" "generator.yaml"</span>
+<span class="s1">             sed -i "s!AGGREGATOR_VERSION!$image_version!g" "aggregator.yaml"</span>
+<span class="s1">             sed -i "s!DETECTOR_VERSION!$image_version!g" "detector.yaml" </span>
+<span class="s1">             sed -i "s!REST_VERSION!$image_version!g" "restapi.yaml"</span>
+
+<span class="s1">             kc apply -f generator.yaml</span>
+<span class="s1">             kc apply -f aggregator.yaml</span>
+<span class="s1">             kc apply -f detector.yaml</span>
+<span class="s1">             kc apply -f restapi.yaml</span>
+<span class="s1">                    fi</span>
+<span class="s1">   </span>
+<span class="s1">   </span>
+<span class="s1">   </span>
+<span class="s1">            echo "---- manifest applied ----"</span>
+<span class="s1">            echo "---- checking result ----"</span>
+<span class="s1">            </span>
+<span class="s1">            echo " &gt;&gt; Deployments "</span>
+<span class="s1">            kc get deployments</span>
+<span class="s1">            </span>
+<span class="s1">            echo " &gt;&gt; Services"</span>
+<span class="s1">            kc get svc</span>
+<span class="s1">            </span>
+<span class="s1">            echo " &gt;&gt; Ingress"</span>
+<span class="s1">            kc get ingress</span>
+<span class="s1">            </span>
+<span class="s1">            echo " &gt;&gt; Pods"</span>
+<span class="s1">            kc get pods</span>
+<span class="s1">            </span>
+<span class="s1">            echo "---- Done ----"</span>
+<span class="s1">          '''</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Step-6-—-Performance-test">
+<a class="anchor" href="#Step-6-%E2%80%94-Performance-test" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 6 — Performance test<a class="anchor-link" href="#Step-6-%E2%80%94-Performance-test"> </a>
+</h3>
+<p>We deploy Predator — the tool which we use for performance test.</p>
 
 </div>
 </div>
