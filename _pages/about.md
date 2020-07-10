@@ -4,7 +4,16 @@ title: About Me
 permalink: /about/
 ---
 
-This is where you put the contents of your *About* page. Like all your pages, it's in [Markdown](https://guides.github.com/features/mastering-markdown/) format.
+Hi there, Welcome to Piyush.Dev 
+
+I am a data scientist who enjoys playing with new technologies and identify possible use cases in the real world.
+
+I am an engineer by qualification, turned to data science by sheer nature of curiosity.
+
+I like learning new things and sharing here.
+
+Welcome to my site. 
+
 
 This website is powered by **[fastpages](https://github.com/fastai/fastpages)** [^1].
 
