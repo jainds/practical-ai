@@ -1,13 +1,13 @@
 ---
 toc: true
 layout: post
-description: A minimal example of using markdown with fastpages.
+description: Get to know Computer vision annotation tool.
 categories: [annotation]
 title: All you need to know about CVAT
 ---
 ## Introduction
 
-Once you start your journey into data science, you quickly learn that as part of your job you are spending more time with data than models. Data and labels go hand in hand and hence, I will be sharing what you need to know before you decide to use [CVAT](https://cvat.org) as your image/video annotation tool.  
+Once you start your journey into data science, you quickly learn that as part of your job you are spending more time with data than models. Data and labels go hand in hand and hence, I will be sharing what you need to know before you decide to use [CVAT](https://cvat.org) as your image/video annotation tool. Let's start with the easier bit i.e. complete name of tool - Computer Vision Annotation Tool 
 
 
 ## Ease of Setup
