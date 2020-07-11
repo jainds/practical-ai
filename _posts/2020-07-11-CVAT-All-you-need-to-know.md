@@ -7,12 +7,12 @@ title: All you need to know about CVAT
 ---
 ## Introduction
 
-Once you start your journey into data science, you quickly learn that as part of your job you are spending more time with data than models. Data and labels go hand in hand and hence, I will be sharing what you need to know before you decide to use CVAT as your image/video annotation tool.  
+Once you start your journey into data science, you quickly learn that as part of your job you are spending more time with data than models. Data and labels go hand in hand and hence, I will be sharing what you need to know before you decide to use [CVAT](https://cvat.org) as your image/video annotation tool.  
 
 
 ## Ease of Setup
 
-A treat awaits in this section if you have worked with docker compose before, CVAT is very easy to setup as the source code contains necessary docker compose files which makes complete setup a breeze in your local. Repo also features an instruction documentation which is comprehensively written and covers every line of code that needs to be executed in order to get the tool running.  
+A treat awaits in this section if you have worked with [docker compose](https://docs.docker.com/compose/) before, CVAT is very easy to setup as the source code contains necessary docker compose files which makes complete setup a breeze in your local. Repo also features an instruction documentation which is comprehensively written and covers every line of code that needs to be executed in order to get the tool running.  
 
 Complete setup is nicely segregated into docker-compose files with docker apps named cvat,cvat_ui, cvat_db. 
 There are two ways to go ahead with setting up the tool, the easier way of deploying it in a VM and a little longer way on Kubernetes. A VM with enough firepower to run an instance of Postgres, Django backend and a react app to support the number of users that you expect to access the tool simultaneously should be alright. An example: I was able to support 200+ users(some of them were automated scripts) in a single VM with the analytics component running using a Standard D5 v2 (16 vcpus, 56 GiB memory) Azure VM. The power of your VM needs to be proportionately increased if you wish to use the additional components like deep learning model based auto labelling. 
@@ -20,7 +20,8 @@ If you choose to deploy the tool in Kubernetes, you could benefit from the auto-
 
 ## Ease of Usage
 
-The application's desktop UI although not fancy, is very feature rich and achieves the goal of labeling images and videos with ease.There's a long list of keyboard shortcuts supported and you don't necessarily need to remember every shortcut, simply pick and choose which help you speed up. I found the shortcut to create poly shapes and rectangles during labelling as very useful. Keyboard shortcuts combined with the feature rich app make labelling task slick and smooth. The application also features a task assignment and task process flow using which larger teams can collaborate by assigning tasks to a specific user and updating the current status of task for others to see. CVAT is developed considering the desktop based user interface, which means we need to keep expectations lower while trying to use it on mobile or tablets. CVAT also features a command line interface which enables you to perform simple CRUD operations on task.
+The application's desktop UI although not fancy, is very feature rich and achieves the goal of labeling images and videos with ease.There's a long list of keyboard shortcuts supported and you don't necessarily need to remember every shortcut, simply pick and choose which help you speed up. I found the shortcut to create poly shapes and rectangles during labelling as very useful. Keyboard shortcuts combined with the feature rich app make labelling task slick and smooth. The application also features a task assignment and task process flow using which larger teams can collaborate by assigning tasks to a specific user and updating the current status of task for others to see. CVAT is developed considering the desktop based user interface, which means we need to keep expectations lower while trying to use it on mobile or tablets. You can try the app online right now by navigating to [cvat.org](https://cvat.org)
+CVAT also features a command line interface which enables you to perform simple CRUD operations on task.
 
 ## Data Extraction/ Upload
 
@@ -56,5 +57,5 @@ Restoration is as simple as backup by using docker commands.
 
 ## Community
 
-CVAT community is available on github and gitter. I have personally found them responding faster on gitter compared to raising issues on github. 
+CVAT community is available on [GitHub](https://github.com/opencv/cvat) and [Gitter](https://gitter.im/opencv-cvat/public). I have personally found them responding faster on gitter compared to raising issues on github. 
 
