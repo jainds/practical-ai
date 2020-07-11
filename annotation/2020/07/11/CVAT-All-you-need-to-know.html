@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>All you need to know about CVAT | Piyush Jain</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="All you need to know about CVAT" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A minimal example of using markdown with fastpages." />
+<meta property="og:description" content="A minimal example of using markdown with fastpages." />
+<link rel="canonical" href="https://piyush.dev/annotation/2020/07/11/CVAT-All-you-need-to-know.html" />
+<meta property="og:url" content="https://piyush.dev/annotation/2020/07/11/CVAT-All-you-need-to-know.html" />
+<meta property="og:site_name" content="Piyush Jain" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-11T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"A minimal example of using markdown with fastpages.","@type":"BlogPosting","headline":"All you need to know about CVAT","dateModified":"2020-07-11T00:00:00-05:00","datePublished":"2020-07-11T00:00:00-05:00","url":"https://piyush.dev/annotation/2020/07/11/CVAT-All-you-need-to-know.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://piyush.dev/annotation/2020/07/11/CVAT-All-you-need-to-know.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://piyush.dev/feed.xml" title="Piyush Jain" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-172353223-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>All you need to know about CVAT | Piyush Jain</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="All you need to know about CVAT" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A minimal example of using markdown with fastpages." />
+<meta property="og:description" content="A minimal example of using markdown with fastpages." />
+<link rel="canonical" href="https://piyush.dev/annotation/2020/07/11/CVAT-All-you-need-to-know.html" />
+<meta property="og:url" content="https://piyush.dev/annotation/2020/07/11/CVAT-All-you-need-to-know.html" />
+<meta property="og:site_name" content="Piyush Jain" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-11T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"A minimal example of using markdown with fastpages.","@type":"BlogPosting","headline":"All you need to know about CVAT","dateModified":"2020-07-11T00:00:00-05:00","datePublished":"2020-07-11T00:00:00-05:00","url":"https://piyush.dev/annotation/2020/07/11/CVAT-All-you-need-to-know.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://piyush.dev/annotation/2020/07/11/CVAT-All-you-need-to-know.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://piyush.dev/feed.xml" title="Piyush Jain" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-172353223-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Piyush Jain</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">All you need to know about CVAT</h1><p class="page-description">A minimal example of using markdown with fastpages.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-07-11T00:00:00-05:00" itemprop="datePublished">
+        Jul 11, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      5 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#annotation">annotation</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#introduction">Introduction</a></li>
+<li class="toc-entry toc-h2"><a href="#ease-of-setup">Ease of Setup</a></li>
+<li class="toc-entry toc-h2"><a href="#ease-of-usage">Ease of Usage</a></li>
+<li class="toc-entry toc-h2"><a href="#data-extraction-upload">Data Extraction/ Upload</a></li>
+<li class="toc-entry toc-h2"><a href="#annotations-format-supported">Annotations Format Supported</a></li>
+<li class="toc-entry toc-h2"><a href="#backup-and-restore">Backup and Restore</a></li>
+<li class="toc-entry toc-h2"><a href="#community">Community</a></li>
+</ul><h2 id="introduction">
+<a class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h2>
+
+<p>Once you start your journey into data science, you quickly learn that as part of your job you are spending more time with data than models. Data and labels go hand in hand and hence, I will be sharing what you need to know before you decide to use <a href="https://cvat.org">CVAT</a> as your image/video annotation tool.</p>
+
+<h2 id="ease-of-setup">
+<a class="anchor" href="#ease-of-setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ease of Setup</h2>
+
+<p>A treat awaits in this section if you have worked with <a href="https://docs.docker.com/compose/">docker compose</a> before, CVAT is very easy to setup as the source code contains necessary docker compose files which makes complete setup a breeze in your local. Repo also features an instruction documentation which is comprehensively written and covers every line of code that needs to be executed in order to get the tool running.</p>
+
+<p>Complete setup is nicely segregated into docker-compose files with docker apps named cvat,cvat_ui, cvat_db. 
+There are two ways to go ahead with setting up the tool, the easier way of deploying it in a VM and a little longer way on Kubernetes. A VM with enough firepower to run an instance of Postgres, Django backend and a react app to support the number of users that you expect to access the tool simultaneously should be alright. An example: I was able to support 200+ users(some of them were automated scripts) in a single VM with the analytics component running using a Standard D5 v2 (16 vcpus, 56 GiB memory) Azure VM. The power of your VM needs to be proportionately increased if you wish to use the additional components like deep learning model based auto labelling. 
+If you choose to deploy the tool in Kubernetes, you could benefit from the auto-scaling functionality for each app inside CVAT. Kubernetes YAML files are not available as part of source code and hence you might need to create them yourself. I recommend <a href="https://kompose.io">Kompose</a> to create Kubrnetes YAML from docker compose files. Scalability is an important aspect while considering a tool for production deployment. In order to make sure that the tool works for foreseeable growth in number of users. App can be scaled easily since everything is nicely wrapped into docker containers.</p>
+
+<h2 id="ease-of-usage">
+<a class="anchor" href="#ease-of-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ease of Usage</h2>
+
+<p>The application’s desktop UI although not fancy, is very feature rich and achieves the goal of labeling images and videos with ease.There’s a long list of keyboard shortcuts supported and you don’t necessarily need to remember every shortcut, simply pick and choose which help you speed up. I found the shortcut to create poly shapes and rectangles during labelling as very useful. Keyboard shortcuts combined with the feature rich app make labelling task slick and smooth. The application also features a task assignment and task process flow using which larger teams can collaborate by assigning tasks to a specific user and updating the current status of task for others to see. CVAT is developed considering the desktop based user interface, which means we need to keep expectations lower while trying to use it on mobile or tablets. You can try the app online right now by navigating to <a href="https://cvat.org">cvat.org</a>
+CVAT also features a command line interface which enables you to perform simple CRUD operations on task.</p>
+
+<h2 id="data-extraction-upload">
+<a class="anchor" href="#data-extraction-upload" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data Extraction/ Upload</h2>
+
+<p>A Django app in backend and react UI as frontend, CVAT is quite covered with options to upload data via UI or CLI. App works on a unique task based system, each upload is created as a task in the system. The task can then be further assigned to different users for labelling, quality check, etc. When using the UI to upload data, you don’t need to worry about label formatting because the app takes care of it. CLI based upload requires data to be structured in specific formats before it can be processed. I recommend CLI to perform automated scripts based data upload and UI when actual human is performing the uplaod and labelling task.</p>
+
+<p>Extraction of data is a very important step which will have to be performed by every team on regular basis. CVAT supports extraction of data in a format by both interfaces i.e. UI and CLI. A user can go to a task and there’s option to extract the data in various supported formats. when trying to extract multiple data points or tasks in CVAT, UI based extraction might seem time consuming . CLI comes to rescue here, extraction of data in any supported format is super simple using CLI. An important thing to note here is CVAT currently doesn’t support bulk extraction or upload of data using UI.</p>
+
+<p>The dev team also mentiond about datumaro dataset framework which can be used to transform, merge, extract multiple datasets from CVAT. I was not able to get it working and therefore no comments on that.</p>
+
+<h2 id="annotations-format-supported">
+<a class="anchor" href="#annotations-format-supported" aria-hidden="true"><span class="octicon octicon-link"></span></a>Annotations Format Supported</h2>
+
+<p>I am borrowing a table available in CVAT documentation to show the formats supported. It supports all major community defined data label formats. The labels covers the spectrum of classification, obejct detection and segmentation tasks in computer vision.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Annotation format</th>
+      <th>Import</th>
+      <th>Export</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="cvat/apps/documentation/xml_format.md#annotation">CVAT for images</a></td>
+      <td>X</td>
+      <td>X</td>
+    </tr>
+    <tr>
+      <td><a href="cvat/apps/documentation/xml_format.md#interpolation">CVAT for a video</a></td>
+      <td>X</td>
+      <td>X</td>
+    </tr>
+    <tr>
+      <td><a href="datumaro/README.md">Datumaro</a></td>
+      <td> </td>
+      <td>X</td>
+    </tr>
+    <tr>
+      <td><a href="http://host.robots.ox.ac.uk/pascal/VOC/">PASCAL VOC</a></td>
+      <td>X</td>
+      <td>X</td>
+    </tr>
+    <tr>
+      <td>Segmentation masks from <a href="http://host.robots.ox.ac.uk/pascal/VOC/">PASCAL VOC</a>
+</td>
+      <td>X</td>
+      <td>X</td>
+    </tr>
+    <tr>
+      <td><a href="https://pjreddie.com/darknet/yolo/">YOLO</a></td>
+      <td>X</td>
+      <td>X</td>
+    </tr>
+    <tr>
+      <td><a href="http://cocodataset.org/#format-data">MS COCO Object Detection</a></td>
+      <td>X</td>
+      <td>X</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.tensorflow.org/tutorials/load_data/tf_records">TFrecord</a></td>
+      <td>X</td>
+      <td>X</td>
+    </tr>
+    <tr>
+      <td><a href="https://motchallenge.net/">MOT</a></td>
+      <td>X</td>
+      <td>X</td>
+    </tr>
+    <tr>
+      <td><a href="http://labelme.csail.mit.edu/Release3.0">LabelMe 3.0</a></td>
+      <td>X</td>
+      <td>X</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="backup-and-restore">
+<a class="anchor" href="#backup-and-restore" aria-hidden="true"><span class="octicon octicon-link"></span></a>Backup and Restore</h2>
+
+<p>All images/videos uploaded are stored in docker volume cvat_data and the respective label data is stored in postgres. Postgres data is stored in docker volume cvat_db. In order to backup the complete app data, you can simply create volume backup for these two volumes in form of .tar files. 
+Configuring the said docker volumes to a persistent storage like S3 or azure blob would enable you to setup automated cloud backup for these volumes. 
+Restoration is as simple as backup by using docker commands.</p>
+
+<h2 id="community">
+<a class="anchor" href="#community" aria-hidden="true"><span class="octicon octicon-link"></span></a>Community</h2>
+
+<p>CVAT community is available on <a href="https://github.com/opencv/cvat">GitHub</a> and <a href="https://gitter.im/opencv-cvat/public">Gitter</a>. I have personally found them responding faster on gitter compared to raising issues on github.</p>
+
+
+  </div><a class="u-url" href="/annotation/2020/07/11/CVAT-All-you-need-to-know.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Data Scientist |  Engineer | Entrepreneur</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/jainds" title="jainds"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/jainds" title="jainds"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
