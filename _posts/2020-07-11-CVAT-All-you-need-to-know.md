@@ -38,9 +38,9 @@ I am borrowing a table available in CVAT documentation to show the formats suppo
 
 | Annotation format                                                                          | Import | Export |
 | ------------------------------------------------------------------------------------------ | ------ | ------ |
-| [CVAT for images](https://github.com/jainds/cvat/apps/documentation/xml_format.md#annotation)                        | X      | X      |
-| [CVAT for a video](https://github.com/jainds/cvat/apps/documentation/xml_format.md#interpolation)                    | X      | X      |
-| [Datumaro](https://github.com/jainds/datumaro/README.md)                                                             |        | X      |
+| [CVAT for images](https://github.com/jainds/cvat/blob/develop/cvat/apps/documentation/xml_format.md#annotation)                        | X      | X      |
+| [CVAT for a video](https://github.com/jainds/cvat/blob/develop/cvat/apps/documentation/xml_format.md#interpolation)                    | X      | X      |
+| [Datumaro](https://github.com/jainds/cvat/blob/develop/datumaro/README.md)                                                             |        | X      |
 | [PASCAL VOC](http://host.robots.ox.ac.uk/pascal/VOC/)                                      | X      | X      |
 | Segmentation masks from [PASCAL VOC](http://host.robots.ox.ac.uk/pascal/VOC/)              | X      | X      |
 | [YOLO](https://pjreddie.com/darknet/yolo/)                                                 | X      | X      |
