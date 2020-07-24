@@ -285,8 +285,8 @@ Assuming that the output of convolution is 0,1,2,2,5,1,2, global max pooling out
 <a class="anchor" href="#Rocket-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Rocket usage<a class="anchor-link" href="#Rocket-usage"> </a>
 </h2>
 <p>Now that we understand what kernels are and how rocket generates two outputs by convolution of kernel and input vector, let's understand how to use it.</p>
-<p>The time series data needs to be provided as input into the rocket transform method, the value for number of kernels (i.e. k) is set at 10,000 by default. This means that if the input data has one feature then it would result in 20,000 features as output after rocket transform.</p>
-<p>The tranformed feature table can now we used as any classification algorithm, authors advise linear algorithms like ridge regression classifier or logistic regression.</p>
+<p>The time series data needs to be provided as input into the rocket transform method, the value for number of kernels (i.e. k) is set at 10,000 by default. This means that for every one input feature it would result in 20,000 features as output after rocket transform.</p>
+<p>The tranformed feature table can now we used as input data for any classification algorithm, authors advise linear algorithms like ridge regression classifier or logistic regression.</p>
 <h2 id="Rocket-v/s-others">
 <a class="anchor" href="#Rocket-v/s-others" aria-hidden="true"><span class="octicon octicon-link"></span></a>Rocket v/s others<a class="anchor-link" href="#Rocket-v/s-others"> </a>
 </h2>
