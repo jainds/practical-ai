@@ -437,7 +437,7 @@ Requirement already satisfied: patsy&gt;=0.5 in /usr/local/lib/python3.6/dist-pa
 </section>
 <section id="download-dataset-and-extract" class="level3">
 <h3 class="anchored" data-anchor-id="download-dataset-and-extract">Download dataset and extract</h3>
-<div id="cell-7" class="cell" data-trusted="true" data-outputid="86b6dac3-3040-4ea1-a7aa-a808de46d18c">
+<div id="cell-7" class="cell" data-outputid="86b6dac3-3040-4ea1-a7aa-a808de46d18c" data-trusted="true">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#collapse-hide</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Download the file</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wget <span class="st">"https://archive.ics.uci.edu/ml/machine-learning-databases/00240/UCI HAR Dataset.zip"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -463,7 +463,7 @@ UCI HAR Dataset.zip 100%[===================&gt;]  58.17M  35.0MB/s    in 1.7s
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>zip_ref.extractall(<span class="st">'./'</span>)</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>zip_ref.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-9" class="cell" data-trusted="true" data-outputid="26128f35-2971-4c78-a876-84e6862f8102">
+<div id="cell-9" class="cell" data-outputid="26128f35-2971-4c78-a876-84e6862f8102" data-trusted="true">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#collapse-hide</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># validate if file exists</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>ls .<span class="op">/</span><span class="st">'UCI HAR Dataset'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -501,7 +501,7 @@ UCI HAR Dataset.zip 100%[===================&gt;]  58.17M  35.0MB/s    in 1.7s
 </section>
 <section id="defining-train-test-data" class="level3">
 <h3 class="anchored" data-anchor-id="defining-train-test-data">Defining Train test data</h3>
-<div id="cell-12" class="cell" data-trusted="true" data-outputid="99c9f93f-4a30-4455-f381-e025df1376a5">
+<div id="cell-12" class="cell" data-outputid="99c9f93f-4a30-4455-f381-e025df1376a5" data-trusted="true">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#collapse-show</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>DATA_PATH <span class="op">=</span> <span class="st">"./"</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>TRAIN <span class="op">=</span> <span class="st">"train/"</span></span>
@@ -570,7 +570,7 @@ UCI HAR Dataset.zip 100%[===================&gt;]  58.17M  35.0MB/s    in 1.7s
 </section>
 <section id="preparing-dataset" class="level3">
 <h3 class="anchored" data-anchor-id="preparing-dataset">Preparing dataset</h3>
-<div id="cell-14" class="cell" data-trusted="true" data-outputid="a76030ac-46ff-414e-dc65-941b3446e91d">
+<div id="cell-14" class="cell" data-outputid="a76030ac-46ff-414e-dc65-941b3446e91d" data-trusted="true">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#collapse-show</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> preprocess_data(data_array):</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -593,7 +593,7 @@ UCI HAR Dataset.zip 100%[===================&gt;]  58.17M  35.0MB/s    in 1.7s
 <pre><code>OK !</code></pre>
 </div>
 </div>
-<div id="cell-15" class="cell" data-trusted="true" data-outputid="729eecf0-b6cc-403a-8f26-74492e2ae917">
+<div id="cell-15" class="cell" data-outputid="729eecf0-b6cc-403a-8f26-74492e2ae917" data-trusted="true">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#collapse-show</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> X_train.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">9</span>,<span class="dv">128</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> X_test.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">9</span>,<span class="dv">128</span>)</span>
@@ -616,7 +616,7 @@ Wall time: 6.47 s</code></pre>
 </section>
 <section id="rocket-model" class="level3">
 <h3 class="anchored" data-anchor-id="rocket-model">Rocket Model</h3>
-<div id="cell-17" class="cell" data-trusted="true" data-outputid="0d835982-85dc-43a3-86e0-86089828778c">
+<div id="cell-17" class="cell" data-outputid="0d835982-85dc-43a3-86e0-86089828778c" data-trusted="true">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>rocket_pipeline <span class="op">=</span> make_pipeline(</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    Rocket(num_kernels <span class="op">=</span> <span class="dv">10000</span>, random_state <span class="op">=</span> <span class="dv">1</span>),</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    RidgeClassifierCV(alphas<span class="op">=</span>np.logspace(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">10</span>), normalize<span class="op">=</span><span class="va">True</span>)</span>
@@ -644,7 +644,7 @@ Wall time: 8min 4s</code></pre>
 </section>
 <section id="accuracy-1" class="level3">
 <h3 class="anchored" data-anchor-id="accuracy-1">Accuracy</h3>
-<div id="cell-19" class="cell" data-trusted="true" data-outputid="f59fd656-c191-4e9d-ac77-3969b08851c2">
+<div id="cell-19" class="cell" data-outputid="f59fd656-c191-4e9d-ac77-3969b08851c2" data-trusted="true">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>time rocket_pipeline.score(X_test, y_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>CPU times: user 4min 32s, sys: 193 ms, total: 4min 32s
@@ -654,14 +654,14 @@ Wall time: 2min 17s</code></pre>
 <pre><code>0.9355276552426196</code></pre>
 </div>
 </div>
-<div id="cell-20" class="cell" data-trusted="true" data-outputid="c069005e-e584-4f3d-9a00-b1429442d0e5">
+<div id="cell-20" class="cell" data-outputid="c069005e-e584-4f3d-9a00-b1429442d0e5" data-trusted="true">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>time y_pred <span class="op">=</span> <span class="bu">list</span>(rocket_pipeline.predict(X_test))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>CPU times: user 4min 32s, sys: 128 ms, total: 4min 32s
 Wall time: 2min 17s</code></pre>
 </div>
 </div>
-<div id="cell-21" class="cell" data-trusted="true" data-outputid="efc93187-c387-4a6c-ab4f-b17ac48d948f">
+<div id="cell-21" class="cell" data-outputid="efc93187-c387-4a6c-ab4f-b17ac48d948f" data-trusted="true">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>time plot_confusion_matrix(rocket_pipeline, X_test, y_test, display_labels <span class="op">=</span> LABELS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>CPU times: user 4min 32s, sys: 247 ms, total: 4min 32s
@@ -680,9 +680,6 @@ Wall time: 2min 18s</code></pre>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
 <p>We were able to improve upon accuracy achieved by LSTM model by a very simple implementation using Rocket. LSTM had scored 91% and using Rocket + Ridge Regression classifier the accuracy jumped to 93%. The performance gain achieved becomes sweeter when you compare the time required to code and train, which was very small compared for rocket in comparison to LSTM in our case. The Rocket methodology is an innovative, simple and fresh technique that attracted my attention to this research paper.</p>
-<div id="cell-23" class="cell" data-trusted="true">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 
 
 </section>
