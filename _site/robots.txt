@@ -1,1 +1,0 @@
-Sitemap: https://jainds.github.io/practical-ai/sitemap.xml
