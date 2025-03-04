@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://jainds.github.io/practical-ai/about.html</loc>
-    <lastmod>2025-03-04T12:23:58.674Z</lastmod>
+    <loc>https://jainds.github.io/practical-ai/posts/2020-07-11-CVAT-All-you-need-to-know.html</loc>
+    <lastmod>2025-03-04T13:32:20.401Z</lastmod>
   </url>
   <url>
     <loc>https://jainds.github.io/practical-ai/posts/welcome/index.html</loc>
-    <lastmod>2025-03-04T12:23:58.673Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jainds.github.io/practical-ai/posts/images/readme.html</loc>
-    <lastmod>2025-03-04T12:25:28.433Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jainds.github.io/practical-ai/posts/2020-07-11-CVAT-All-you-need-to-know.html</loc>
-    <lastmod>2025-03-04T12:25:53.600Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jainds.github.io/practical-ai/posts/2020-07-24-Random-convolutional-kernel-transform.html</loc>
-    <lastmod>2025-03-04T12:25:28.431Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jainds.github.io/practical-ai/posts/post-with-code/index.html</loc>
-    <lastmod>2025-03-04T12:23:58.674Z</lastmod>
+    <lastmod>2025-03-04T13:32:20.406Z</lastmod>
   </url>
   <url>
     <loc>https://jainds.github.io/practical-ai/posts/2020-07-07-Deploying-RL-Model.html</loc>
-    <lastmod>2025-03-04T12:25:28.431Z</lastmod>
+    <lastmod>2025-03-04T13:32:20.401Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jainds.github.io/practical-ai/about.html</loc>
+    <lastmod>2025-03-04T13:32:20.401Z</lastmod>
   </url>
   <url>
     <loc>https://jainds.github.io/practical-ai/index.html</loc>
-    <lastmod>2025-03-04T12:23:58.673Z</lastmod>
+    <lastmod>2025-03-04T13:32:20.401Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jainds.github.io/practical-ai/posts/post-with-code/index.html</loc>
+    <lastmod>2025-03-04T13:32:20.405Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jainds.github.io/practical-ai/posts/2020-07-24-Random-convolutional-kernel-transform.html</loc>
+    <lastmod>2025-03-04T13:32:20.401Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jainds.github.io/practical-ai/posts/images/readme.html</loc>
+    <lastmod>2025-03-04T13:32:20.404Z</lastmod>
   </url>
 </urlset>
