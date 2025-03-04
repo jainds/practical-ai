@@ -2,10 +2,10 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/2020-07-07-Deploying-RL-Model.html",
       "/posts/2020-07-24-Random-convolutional-kernel-transform.html",
-      "/posts/images/readme.html",
       "/posts/2020-07-11-CVAT-All-you-need-to-know.html",
+      "/posts/images/readme.html",
+      "/posts/2020-07-07-Deploying-RL-Model.html",
       "/posts/inertia/inertia.html",
       "/posts/post-with-code/index.html",
       "/posts/welcome/index.html"
