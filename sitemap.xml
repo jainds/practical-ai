@@ -1,27 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url>
-<loc>https://piyush.dev/deployment/2020/07/07/Deploying-RL-Model.html</loc>
-<lastmod>2020-07-07T00:00:00-05:00</lastmod>
-</url>
-<url>
-<loc>https://piyush.dev/annotation/2020/07/11/CVAT-All-you-need-to-know.html</loc>
-<lastmod>2020-07-11T00:00:00-05:00</lastmod>
-</url>
-<url>
-<loc>https://piyush.dev/research-paper/time-series/classification/2020/07/24/Random-convolutional-kernel-transform.html</loc>
-<lastmod>2020-07-24T00:00:00-05:00</lastmod>
-</url>
-<url>
-<loc>https://piyush.dev/about/</loc>
-</url>
-<url>
-<loc>https://piyush.dev/</loc>
-</url>
-<url>
-<loc>https://piyush.dev/search/</loc>
-</url>
-<url>
-<loc>https://piyush.dev/categories/</loc>
-</url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://jainds.github.io/practical-ai/about.html</loc>
+    <lastmod>2025-03-04T12:23:58.674Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jainds.github.io/practical-ai/posts/welcome/index.html</loc>
+    <lastmod>2025-03-04T12:23:58.673Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jainds.github.io/practical-ai/posts/images/readme.html</loc>
+    <lastmod>2025-03-04T12:25:28.433Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jainds.github.io/practical-ai/posts/2020-07-11-CVAT-All-you-need-to-know.html</loc>
+    <lastmod>2025-03-04T12:25:53.600Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jainds.github.io/practical-ai/posts/2020-07-24-Random-convolutional-kernel-transform.html</loc>
+    <lastmod>2025-03-04T12:25:28.431Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jainds.github.io/practical-ai/posts/post-with-code/index.html</loc>
+    <lastmod>2025-03-04T12:23:58.674Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jainds.github.io/practical-ai/posts/2020-07-07-Deploying-RL-Model.html</loc>
+    <lastmod>2025-03-04T12:25:28.431Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jainds.github.io/practical-ai/index.html</loc>
+    <lastmod>2025-03-04T12:23:58.673Z</lastmod>
+  </url>
 </urlset>

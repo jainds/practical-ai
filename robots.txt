@@ -1,1 +1,1 @@
-Sitemap: https://piyush.dev/sitemap.xml
+Sitemap: https://jainds.github.io/practical-ai/sitemap.xml

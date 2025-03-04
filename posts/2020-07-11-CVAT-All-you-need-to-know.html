@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Get to know Computer vision annotation tool.">
 
-<title>practical-ai-quarto</title>
+<title>All you need to know about CVAT – practical-ai-quarto</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +24,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6bd9cfa162949bde0a231f530c97869d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-6bd9cfa162949bde0a231f530c97869d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,67 +67,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -138,7 +79,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">practical-ai-quarto</span>
     </a>
   </div>
@@ -149,7 +90,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -172,13 +113,21 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">practical-ai-quarto</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">All you need to know about CVAT</h1>
+                  <div>
+        <div class="description">
+          Get to know Computer vision annotation tool.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">annotation</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
       
     
@@ -186,195 +135,127 @@ window.Quarto = {
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(6)</span></div><div class="category" data-category="YW5hbHlzaXM=">analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="YW5ub3RhdGlvbg==">annotation <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y29kZQ==">code <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bmV3cw==">news <span class="quarto-category-count">(2)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#ease-of-setup" id="toc-ease-of-setup" class="nav-link" data-scroll-target="#ease-of-setup">Ease of Setup</a></li>
+  <li><a href="#ease-of-usage" id="toc-ease-of-usage" class="nav-link" data-scroll-target="#ease-of-usage">Ease of Usage</a></li>
+  <li><a href="#data-extraction-upload" id="toc-data-extraction-upload" class="nav-link" data-scroll-target="#data-extraction-upload">Data Extraction/ Upload</a></li>
+  <li><a href="#annotations-format-supported" id="toc-annotations-format-supported" class="nav-link" data-scroll-target="#annotations-format-supported">Annotations Format Supported</a></li>
+  <li><a href="#backup-and-restore" id="toc-backup-and-restore" class="nav-link" data-scroll-target="#backup-and-restore">Backup and Restore</a></li>
+  <li><a href="#community" id="toc-community" class="nav-link" data-scroll-target="#community">Community</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Once you start your journey into data science, you quickly learn that as part of your job you are spending more time with data than models. Data and labels go hand in hand and hence, I will be sharing what you need to know before you decide to use <a href="https://cvat.org">CVAT</a> as your image/video annotation tool. Let’s start with the easier bit i.e.&nbsp;complete name of tool - Computer Vision Annotation Tool</p>
+</section>
+<section id="ease-of-setup" class="level2">
+<h2 class="anchored" data-anchor-id="ease-of-setup">Ease of Setup</h2>
+<p>A treat awaits in this section if you have worked with <a href="https://docs.docker.com/compose/">docker compose</a> before, CVAT is very easy to setup as the source code contains necessary docker compose files which makes complete setup a breeze in your local. Repo also features an instruction documentation which is comprehensively written and covers every line of code that needs to be executed in order to get the tool running.</p>
+<p>Complete setup is nicely segregated into docker-compose files with docker apps named cvat,cvat_ui, cvat_db. There are two ways to go ahead with setting up the tool, the easier way of deploying it in a VM and a little longer way on Kubernetes. A VM with enough firepower to run an instance of Postgres, Django backend and a react app to support the number of users that you expect to access the tool simultaneously should be alright. An example: I was able to support 200+ users(some of them were automated scripts) in a single VM with the analytics component running using a Standard D5 v2 (16 vcpus, 56 GiB memory) Azure VM. The power of your VM needs to be proportionately increased if you wish to use the additional components like deep learning model based auto labelling. If you choose to deploy the tool in Kubernetes, you could benefit from the auto-scaling functionality for each app inside CVAT. Kubernetes YAML files are not available as part of source code and hence you might need to create them yourself. I recommend <a href="https://kompose.io">Kompose</a> to create Kubrnetes YAML from docker compose files. Scalability is an important aspect while considering a tool for production deployment. In order to make sure that the tool works for foreseeable growth in number of users. App can be scaled easily since everything is nicely wrapped into docker containers.</p>
+</section>
+<section id="ease-of-usage" class="level2">
+<h2 class="anchored" data-anchor-id="ease-of-usage">Ease of Usage</h2>
+<p>The application’s desktop UI although not fancy, is very feature rich and achieves the goal of labeling images and videos with ease.There’s a long list of keyboard shortcuts supported and you don’t necessarily need to remember every shortcut, simply pick and choose which help you speed up. I found the shortcut to create poly shapes and rectangles during labelling as very useful. Keyboard shortcuts combined with the feature rich app make labelling task slick and smooth. The application also features a task assignment and task process flow using which larger teams can collaborate by assigning tasks to a specific user and updating the current status of task for others to see. CVAT is developed considering the desktop based user interface, which means we need to keep expectations lower while trying to use it on mobile or tablets. You can try the app online right now by navigating to <a href="https://cvat.org">cvat.org</a> CVAT also features a command line interface which enables you to perform simple CRUD operations on task.</p>
+</section>
+<section id="data-extraction-upload" class="level2">
+<h2 class="anchored" data-anchor-id="data-extraction-upload">Data Extraction/ Upload</h2>
+<p>A Django app in backend and react UI as frontend, CVAT is quite covered with options to upload data via UI or CLI. App works on a unique task based system, each upload is created as a task in the system. The task can then be further assigned to different users for labelling, quality check, etc. When using the UI to upload data, you don’t need to worry about label formatting because the app takes care of it. CLI based upload requires data to be structured in specific formats before it can be processed. I recommend CLI to perform automated scripts based data upload and UI when actual human is performing the uplaod and labelling task.</p>
+<p>Extraction of data is a very important step which will have to be performed by every team on regular basis. CVAT supports extraction of data in a format by both interfaces i.e.&nbsp;UI and CLI. A user can go to a task and there’s option to extract the data in various supported formats. when trying to extract multiple data points or tasks in CVAT, UI based extraction might seem time consuming . CLI comes to rescue here, extraction of data in any supported format is super simple using CLI. An important thing to note here is CVAT currently doesn’t support bulk extraction or upload of data using UI.</p>
+<p>The dev team also mentiond about datumaro dataset framework which can be used to transform, merge, extract multiple datasets from CVAT. I was not able to get it working and therefore no comments on that.</p>
+</section>
+<section id="annotations-format-supported" class="level2">
+<h2 class="anchored" data-anchor-id="annotations-format-supported">Annotations Format Supported</h2>
+<p>I am borrowing a table available in CVAT documentation to show the formats supported. It supports all major community defined data label formats. The labels covers the spectrum of classification, obejct detection and segmentation tasks in computer vision.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Annotation format</th>
+<th>Import</th>
+<th>Export</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://github.com/jainds/cvat/blob/develop/cvat/apps/documentation/xml_format.md#annotation">CVAT for images</a></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/jainds/cvat/blob/develop/cvat/apps/documentation/xml_format.md#interpolation">CVAT for a video</a></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/jainds/cvat/blob/develop/datumaro/README.md">Datumaro</a></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr class="even">
+<td><a href="http://host.robots.ox.ac.uk/pascal/VOC/">PASCAL VOC</a></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr class="odd">
+<td>Segmentation masks from <a href="http://host.robots.ox.ac.uk/pascal/VOC/">PASCAL VOC</a></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr class="even">
+<td><a href="https://pjreddie.com/darknet/yolo/">YOLO</a></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr class="odd">
+<td><a href="http://cocodataset.org/#format-data">MS COCO Object Detection</a></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr class="even">
+<td><a href="https://www.tensorflow.org/tutorials/load_data/tf_records">TFrecord</a></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr class="odd">
+<td><a href="https://motchallenge.net/">MOT</a></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr class="even">
+<td><a href="http://labelme.csail.mit.edu/Release3.0">LabelMe 3.0</a></td>
+<td>X</td>
+<td>X</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="backup-and-restore" class="level2">
+<h2 class="anchored" data-anchor-id="backup-and-restore">Backup and Restore</h2>
+<p>All images/videos uploaded are stored in docker volume cvat_data and the respective label data is stored in postgres. Postgres data is stored in docker volume cvat_db. In order to backup the complete app data, you can simply create volume backup for these two volumes in form of .tar files. Configuring the said docker volumes to a persistent storage like S3 or azure blob would enable you to setup automated cloud backup for these volumes. Restoration is as simple as backup by using docker commands.</p>
+</section>
+<section id="community" class="level2">
+<h2 class="anchored" data-anchor-id="community">Community</h2>
+<p>CVAT community is available on <a href="https://github.com/opencv/cvat">GitHub</a> and <a href="https://gitter.im/opencv-cvat/public">Gitter</a>. I have personally found them responding faster on gitter compared to raising issues on github.</p>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1741091128431" data-listing-reading-time-sort="8" data-listing-word-count-sort="1444">
-<div class="thumbnail">
-<p><a href="./posts/2020-07-24-Random-convolutional-kernel-transform.html" class="no-external"></a></p><a href="./posts/2020-07-24-Random-convolutional-kernel-transform.html" class="no-external">
-<p class="card-img-top"><img src="posts/images/setosa-kernel-image.png" title="credit: setosa.io/ev/image-kernels/" class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/2020-07-24-Random-convolutional-kernel-transform.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2020-07-24-Random-convolutional-kernel-transform.html" class="no-external">“Random Convolutional Kernel Transform”</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/2020-07-24-Random-convolutional-kernel-transform.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/2020-07-24-Random-convolutional-kernel-transform.html" class="no-external">“Understanding the ROCKET paper step by step with an example comparing results with LSTM”</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="./posts/2020-07-24-Random-convolutional-kernel-transform.html" class="no-external"></a></p><a href="./posts/2020-07-24-Random-convolutional-kernel-transform.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="YW5ub3RhdGlvbg==" data-listing-file-modified-sort="1741091153600" data-listing-reading-time-sort="8" data-listing-word-count-sort="1553">
-<div class="thumbnail">
-<p><a href="./posts/2020-07-11-CVAT-All-you-need-to-know.html" class="no-external"></a></p><a href="./posts/2020-07-11-CVAT-All-you-need-to-know.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./posts/2020-07-11-CVAT-All-you-need-to-know.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2020-07-11-CVAT-All-you-need-to-know.html" class="no-external">All you need to know about CVAT</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/2020-07-11-CVAT-All-you-need-to-know.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('YW5ub3RhdGlvbg=='); return false;">
-annotation
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/2020-07-11-CVAT-All-you-need-to-know.html" class="no-external">Get to know Computer vision annotation tool.</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="./posts/2020-07-11-CVAT-All-you-need-to-know.html" class="no-external"></a></p><a href="./posts/2020-07-11-CVAT-All-you-need-to-know.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-listing-file-modified-sort="1741091128433" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<div class="thumbnail">
-<p><a href="./posts/images/readme.html" class="no-external"></a></p><a href="./posts/images/readme.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./posts/images/readme.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/images/readme.html" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/images/readme.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/images/readme.html" class="no-external"></a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="./posts/images/readme.html" class="no-external"></a></p><a href="./posts/images/readme.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-listing-file-modified-sort="1741091128431" data-listing-reading-time-sort="6" data-listing-word-count-sort="1126">
-<div class="thumbnail">
-<p><a href="./posts/2020-07-07-Deploying-RL-Model.html" class="no-external"></a></p><a href="./posts/2020-07-07-Deploying-RL-Model.html" class="no-external">
-<p class="card-img-top"><img src="posts/images/deployment-journey-reinforcement-learning.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/2020-07-07-Deploying-RL-Model.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2020-07-07-Deploying-RL-Model.html" class="no-external">“Deployment Journey of a Reinforcement Learning Algorithm”</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/2020-07-07-Deploying-RL-Model.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/2020-07-07-Deploying-RL-Model.html" class="no-external">“Step by step code based deploymeny into production AKS serving millions of simultaneous users”</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="./posts/2020-07-07-Deploying-RL-Model.html" class="no-external"></a></p><a href="./posts/2020-07-07-Deploying-RL-Model.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="bmV3cyUyQ2NvZGUlMkNhbmFseXNpcw==" data-listing-date-sort="1741017600000" data-listing-file-modified-sort="1741091038674" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="7">
-<div class="thumbnail">
-<p><a href="./posts/post-with-code/index.html" class="no-external"></a></p><a href="./posts/post-with-code/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/post-with-code/image.jpg" class="thumbnail-image"></p>
-</a><p><a href="./posts/post-with-code/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/post-with-code/index.html" class="no-external">Post With Code</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/post-with-code/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('bmV3cw=='); return false;">
-news
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Y29kZQ=='); return false;">
-code
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('YW5hbHlzaXM='); return false;">
-analysis
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/post-with-code/index.html" class="no-external">This is a post with executable code.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/post-with-code/index.html" class="no-external">
-<div class="listing-date">
-Mar 4, 2025
-</div>
-<div class="listing-author">
-Harlow Malloc
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="bmV3cw==" data-listing-date-sort="1740758400000" data-listing-file-modified-sort="1741091038673" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="32">
-<div class="thumbnail">
-<p><a href="./posts/welcome/index.html" class="no-external"></a></p><a href="./posts/welcome/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/welcome/thumbnail.jpg"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/welcome/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/welcome/index.html" class="no-external">Welcome To My Blog</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/welcome/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('bmV3cw=='); return false;">
-news
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/welcome/index.html" class="no-external">This is the first post in a Quarto blog. Welcome!</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/welcome/index.html" class="no-external">
-<div class="listing-date">
-Mar 1, 2025
-</div>
-<div class="listing-author">
-Tristan O’Malley
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
