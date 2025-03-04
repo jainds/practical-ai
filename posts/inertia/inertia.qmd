@@ -1,0 +1,26 @@
+---
+title: "The Inertia Model and Its Relevance to AI Models"
+description: "Post description"
+author: "Piyushkumar Jain"
+date: "2025-04-03"
+---
+
+The Inertia Model, as described in The Great Mental Models series, explains how objects—or systems—tend to resist change due to existing momentum or stagnation. 
+In physics, inertia keeps a moving object in motion unless acted upon by an external force. The same principle applies to decision-making, businesses, and even artificial intelligence models.
+
+AI models, once trained, exhibit a form of inertia. They rely on the data they were trained on and the assumptions built into their architectures. 
+Without intentional updates or external intervention, they continue making predictions based on historical patterns, even when those patterns become outdated. 
+For example, a recommendation algorithm trained on past user behavior may struggle to adapt to sudden shifts in preferences unless it is retrained with fresh data.
+Another example of inertia, traditional businesses like banking and insurance continue to struggle in adopting latest AI technologies in their core areas. 
+
+Another aspect of inertia in AI is model bias. 
+If an AI system has learned biased associations from historical data, that bias will persist unless corrective measures—such as better data curation or active bias mitigation—are introduced. 
+The resistance to change mirrors human cognitive inertia, where existing beliefs and habits are difficult to alter without strong external stimuli.
+
+Applications and Decision making, especially in relation to AI, chimes well with this model. AI models/applications that are incrementally increasing/improving certain parts of a business process are leveraging existing momentum. 
+Comparatively easier to explain the significance, value and cost to the business. It aligns well with the direction and movement of the organization and finds easier/wider acceptance in the organisation.
+Consider an AI model/application that is fundamentally disrupting the existing process or probably making it altogether redundant; they require significantly more escape velocity (so to speak, in cost, explanation, value) to achieve the desired results and hardly see the light of the day. 
+
+In a broader sense, recognizing inertia in AI systems helps researchers and practitioners understand the importance of continuous learning and adaptation. Just as overcoming inertia in human behavior requires conscious effort, ensuring AI models remain effective and relevant requires ongoing intervention, retraining, and validation.
+
+By applying the Inertia Model, we can better anticipate challenges in AI development and deployment, ensuring that models do not stagnate or reinforce outdated patterns, but instead evolve with the real-world data they interact with.
