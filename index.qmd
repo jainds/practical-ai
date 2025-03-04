@@ -1,5 +1,5 @@
 ---
-title: "practical-ai-quarto"
+title: "Piyush's Musings on Practical AI"
 listing:
   contents: posts
   sort: "date desc"
