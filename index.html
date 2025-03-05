@@ -41,6 +41,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-8647a4a42273f773479d27c00df3f9ed.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -78,9 +79,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-image','listing-date','listing-title','listing-author',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+      searchColumns: ["listing-title"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -141,7 +142,7 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="styles.css">
-</head>
+<link rel="alternate" type="application/rss+xml" title="Piyush's Blog" href="index.xml" data-external="1"></head>
 
 <body class="nav-fixed">
 
@@ -165,14 +166,13 @@ window.Quarto = {
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/jainds"> <i class="bi bi-github" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com"> <i class="bi bi-twitter" role="img">
-</i> 
-<span class="menu-text"></span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="https://bsky.app/profile/jainpiyush.bsky.social"> 
+<span class="menu-text"><iconify-icon role="img" inline="" icon="fa6-brands:bluesky" aria-label="Icon bluesky from fa6-brands Iconify.design set." title="Icon bluesky from fa6-brands Iconify.design set."></iconify-icon></span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -203,7 +203,7 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(5)</span></div><div class="category" data-category="YW5ub3RhdGlvbg==">annotation <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y2xhc3NpZmljYXRpb24=">classification <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZGVwbG95bWVudA==">deployment <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cmVzZWFyY2gtcGFwZXI=">research-paper <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dGltZS1zZXJpZXM=">time-series <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(5)</span></div><div class="category" data-category="YW5ub3RhdGlvbg==">annotation <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Ym9va3M=">books <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y2xhc3NpZmljYXRpb24=">classification <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZGVwbG95bWVudA==">deployment <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cmVzZWFyY2gtcGFwZXI=">research-paper <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dGltZS1zZXJpZXM=">time-series <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
@@ -216,8 +216,14 @@ window.Quarto = {
 
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="listing-actions-group">
+    <div class="input-group input-group-sm quarto-listing-filter">
+      <span class="input-group-text"><i class="bi bi-search"></i></span>
+      <input type="text" class="search form-control" placeholder="Filter">
+    </div>
+</div>
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1741143112434" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1741144881054" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <div class="thumbnail">
 <p><a href="./posts/images/readme.html" class="no-external"></a></p><a href="./posts/images/readme.html" class="no-external">
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -230,16 +236,13 @@ window.Quarto = {
 <div class="listing-subtitle">
 <a href="./posts/images/readme.html" class="no-external"></a>
 </div>
-<div class="listing-description">
-<a href="./posts/images/readme.html" class="no-external"></a>
-</div>
 </div>
 <div class="metadata">
 <p><a href="./posts/images/readme.html" class="no-external"></a></p><a href="./posts/images/readme.html" class="no-external">
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1743638400000" data-listing-file-modified-sort="1741143112435" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="379">
+<div class="quarto-post image-right" data-index="1" data-categories="Ym9va3M=" data-listing-date-sort="1743638400000" data-listing-file-modified-sort="1741144881055" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="379">
 <div class="thumbnail">
 <p><a href="./posts/inertia/inertia.html" class="no-external"></a></p><a href="./posts/inertia/inertia.html" class="no-external">
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -251,9 +254,6 @@ window.Quarto = {
 </h3>
 <div class="listing-subtitle">
 <a href="./posts/inertia/inertia.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/inertia/inertia.html" class="no-external">Post description</a>
 </div>
 </div>
 <div class="metadata">
@@ -267,7 +267,7 @@ Piyushkumar Jain
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-categories="cmVzZWFyY2gtcGFwZXIlMkN0aW1lLXNlcmllcyUyQ2NsYXNzaWZpY2F0aW9u" data-listing-date-sort="1595548800000" data-listing-file-modified-sort="1741143112431" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11" data-listing-word-count-sort="2053">
+<div class="quarto-post image-right" data-index="2" data-categories="cmVzZWFyY2gtcGFwZXIlMkN0aW1lLXNlcmllcyUyQ2NsYXNzaWZpY2F0aW9u" data-listing-date-sort="1595548800000" data-listing-file-modified-sort="1741144881051" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11" data-listing-word-count-sort="2053">
 <div class="thumbnail">
 <p><a href="./posts/2020-07-24-Random-convolutional-kernel-transform.html" class="no-external"></a></p><a href="./posts/2020-07-24-Random-convolutional-kernel-transform.html" class="no-external">
 <p><img loading="lazy" src="./posts/images/Rocket-mean-acuracy-on-bakeoff-datasets.png" class="thumbnail-image"></p>
@@ -280,20 +280,6 @@ Piyushkumar Jain
 <div class="listing-subtitle">
 <a href="./posts/2020-07-24-Random-convolutional-kernel-transform.html" class="no-external"></a>
 </div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('cmVzZWFyY2gtcGFwZXI='); return false;">
-research-paper
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('dGltZS1zZXJpZXM='); return false;">
-time-series
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Y2xhc3NpZmljYXRpb24='); return false;">
-classification
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/2020-07-24-Random-convolutional-kernel-transform.html" class="no-external">Understanding the ROCKET paper step by step with an example comparing results with LSTM</a>
-</div>
 </div>
 <div class="metadata">
 <a href="./posts/2020-07-24-Random-convolutional-kernel-transform.html" class="no-external">
@@ -303,7 +289,7 @@ Jul 24, 2020
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-categories="YW5ub3RhdGlvbg==" data-listing-date-sort="1594425600000" data-listing-file-modified-sort="1741143112431" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1553">
+<div class="quarto-post image-right" data-index="3" data-categories="YW5ub3RhdGlvbg==" data-listing-date-sort="1594425600000" data-listing-file-modified-sort="1741144881051" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1553">
 <div class="thumbnail">
 <p><a href="./posts/2020-07-11-CVAT-All-you-need-to-know.html" class="no-external"></a></p><a href="./posts/2020-07-11-CVAT-All-you-need-to-know.html" class="no-external">
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -315,14 +301,6 @@ Jul 24, 2020
 </h3>
 <div class="listing-subtitle">
 <a href="./posts/2020-07-11-CVAT-All-you-need-to-know.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('YW5ub3RhdGlvbg=='); return false;">
-annotation
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/2020-07-11-CVAT-All-you-need-to-know.html" class="no-external">All you need to know about Computer vision annotation tool.</a>
 </div>
 </div>
 <div class="metadata">
@@ -336,7 +314,7 @@ Piyushkumar Jain
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-categories="ZGVwbG95bWVudA==" data-listing-date-sort="1594080000000" data-listing-file-modified-sort="1741143112433" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2285">
+<div class="quarto-post image-right" data-index="4" data-categories="ZGVwbG95bWVudA==" data-listing-date-sort="1594080000000" data-listing-file-modified-sort="1741144881053" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2285">
 <div class="thumbnail">
 <p><a href="./posts/devops/Deploying-RL-Model.html" class="no-external"></a></p><a href="./posts/devops/Deploying-RL-Model.html" class="no-external">
 <p class="card-img-top"><img src="posts/images/deployment-journey-reinforcement-learning.png"  class="thumbnail-image card-img"/></p>
@@ -348,14 +326,6 @@ Piyushkumar Jain
 </h3>
 <div class="listing-subtitle">
 <a href="./posts/devops/Deploying-RL-Model.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('ZGVwbG95bWVudA=='); return false;">
-deployment
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/devops/Deploying-RL-Model.html" class="no-external">Step by step code based deployment into production AKS serving millions of simultaneous users</a>
 </div>
 </div>
 <div class="metadata">
