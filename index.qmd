@@ -6,7 +6,9 @@ listing:
   type: default
   categories: true
   sort-ui: false
-  filter-ui: false
+  filter-ui: [title]
+  fields: [image, date, title, author]
+  feed: true
 page-layout: full
 title-block-banner: true
 ---
