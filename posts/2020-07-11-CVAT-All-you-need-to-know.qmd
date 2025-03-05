@@ -1,9 +1,15 @@
 ---
+title: "Intro to CVAT"
+description: "All you need to know about Computer vision annotation tool."
+author: "Piyushkumar Jain"
+date: "2020-07-11"
 toc: true
-layout: post
-description: Get to know Computer vision annotation tool.
+branch: master
+badges: false
 categories: [annotation]
-title: All you need to know about CVAT
+hide: false
+search_exclude: false
+layout: post
 ---
 ## Introduction
 
