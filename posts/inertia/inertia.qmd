@@ -1,8 +1,13 @@
 ---
 title: "The Inertia Model and Its Relevance to AI Models"
-description: "Post description"
 author: "Piyushkumar Jain"
 date: "2025-04-03"
+categories :
+    - books
+tags:
+    - datascience
+    - mental-models
+    - decision-making
 ---
 
 The Inertia Model, as described in The Great Mental Models series, explains how objects—or systems—tend to resist change due to existing momentum or stagnation. 

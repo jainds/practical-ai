@@ -7,9 +7,10 @@ website:
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/
-      - icon: twitter
-        href: https://twitter.com
+        href: https://github.com/jainds
+      - text: "{{< iconify fa6-brands:bluesky >}}"
+        href: https://bsky.app/profile/jainpiyush.bsky.social
+  site-url: "https://piyush.dev"
 comments: 
   hypothesis:
     theme: clean
