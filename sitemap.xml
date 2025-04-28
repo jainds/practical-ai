@@ -1,31 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://piyush.dev/posts/2020-07-11-CVAT-All-you-need-to-know.html</loc>
-    <lastmod>2025-03-05T03:21:21.051Z</lastmod>
-  </url>
-  <url>
-    <loc>https://piyush.dev/posts/2020-07-24-Random-convolutional-kernel-transform.html</loc>
-    <lastmod>2025-03-05T03:21:21.051Z</lastmod>
-  </url>
-  <url>
-    <loc>https://piyush.dev/posts/devops/Deploying-RL-Model.html</loc>
-    <lastmod>2025-03-05T03:21:21.053Z</lastmod>
-  </url>
-  <url>
     <loc>https://piyush.dev/index.html</loc>
-    <lastmod>2025-03-05T03:21:21.051Z</lastmod>
-  </url>
-  <url>
-    <loc>https://piyush.dev/about.html</loc>
-    <lastmod>2025-03-05T03:21:21.051Z</lastmod>
-  </url>
-  <url>
-    <loc>https://piyush.dev/posts/inertia/inertia.html</loc>
-    <lastmod>2025-03-05T03:21:21.055Z</lastmod>
+    <lastmod>2025-04-28T12:59:50.505Z</lastmod>
   </url>
   <url>
     <loc>https://piyush.dev/posts/images/readme.html</loc>
-    <lastmod>2025-03-05T03:21:21.054Z</lastmod>
+    <lastmod>2025-04-28T12:59:50.517Z</lastmod>
+  </url>
+  <url>
+    <loc>https://piyush.dev/posts/inertia/inertia.html</loc>
+    <lastmod>2025-04-28T12:59:50.518Z</lastmod>
+  </url>
+  <url>
+    <loc>https://piyush.dev/posts/2020-07-24-Random-convolutional-kernel-transform.html</loc>
+    <lastmod>2025-04-28T12:59:50.505Z</lastmod>
+  </url>
+  <url>
+    <loc>https://piyush.dev/posts/devops/Deploying-RL-Model.html</loc>
+    <lastmod>2025-04-28T12:59:50.507Z</lastmod>
+  </url>
+  <url>
+    <loc>https://piyush.dev/posts/2025-04-28-My-Weekend-Wrestling-Match-with-Madrigal.html</loc>
+    <lastmod>2025-04-28T12:59:50.505Z</lastmod>
+  </url>
+  <url>
+    <loc>https://piyush.dev/posts/2020-07-11-CVAT-All-you-need-to-know.html</loc>
+    <lastmod>2025-04-28T12:59:50.505Z</lastmod>
+  </url>
+  <url>
+    <loc>https://piyush.dev/about.html</loc>
+    <lastmod>2025-04-28T12:59:50.505Z</lastmod>
   </url>
 </urlset>

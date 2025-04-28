@@ -9,8 +9,86 @@
 <link>https://piyush.dev/</link>
 <atom:link href="https://piyush.dev/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
-<generator>quarto-1.6.42</generator>
-<lastBuildDate>Thu, 03 Apr 2025 00:00:00 GMT</lastBuildDate>
+<generator>quarto-1.6.43</generator>
+<lastBuildDate>Thu, 24 Apr 2025 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>My Weekend Wrestling Match with Madrigal</title>
+  <link>https://piyush.dev/posts/2025-04-28-My-Weekend-Wrestling-Match-with-Madrigal.html</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<hr>
+<section id="my-weekend-wrestling-match-with-madrigal-a-mlops-deployment-story" class="level2">
+<h2 class="anchored" data-anchor-id="my-weekend-wrestling-match-with-madrigal-a-mlops-deployment-story">My Weekend Wrestling Match with Madrigal: A MLOps Deployment Story</h2>
+<p>You know that feeling? You see a cool project online – in my case, <a href="https://github.com/aishwaryaprabhat/madrigal">Madrigal</a>, a Red Teaming MLOps platform – glance at the architecture diagram, find the code, and think, “Hey, I could totally run this locally!” My machine’s got the chops, so why not dive in over the weekend? Famous last words, right? What followed was a bit of a rollercoaster ride through the highs and lows of setting things up, hitting walls, and having those little “aha!” moments. Grab a cuppa, and let me tell you about it.</p>
+<p><strong>Day 1: The Multipass Mystery</strong></p>
+<p>Fired up and ready to go, I started with <a href="https://multipass.run/">Multipass</a>. It’s Canonical’s tool for spinning up Ubuntu VMs pretty easily, and I paired it with <a href="https://microk8s.io/">MicroK8s</a> for a lightweight Kubernetes setup. The plan? Get a local dev environment rocking for some ML workflow deployment.</p>
+<p>I spent a good chunk of time wrestling with <a href="https://helm.sh/">Helm charts</a> and getting the Kubernetes cluster humming. But then, roadblock #1: I set up port-forwarding, but my services were playing hide-and-seek – completely inaccessible from outside the VM. After digging around, it seemed like Multipass’s networking, while great for simple stuff, gets a bit tricky when you need the more advanced routing Kubernetes often demands. Maybe I just didn’t grok the docs well enough, but it felt like hitting a wall for this kind of workload. I eventually figured out that forwarding port to 0.0.0.0:port would work instead of localhost, but it’s too complex for my taste.</p>
+<ul>
+<li><strong>The realization:</strong> Picking the right virtualization tool is key. For complex K8s setups, you really need something with beefy, flexible networking options.</li>
+</ul>
+<p><strong>Day 2: ARM Wrestling with Kubeflow</strong></p>
+<p>Okay, time for Plan B. I pivoted to <a href="https://k3d.io/">k3d</a>, which wraps <a href="https://k3s.io/">k3s</a> (a lightweight K8s) in Docker containers. Seemed slick and promising! That is, until I tried deploying <a href="https://www.kubeflow.org/docs/components/pipelines/overview/">Kubeflow Pipelines (KFP)</a>. Pods started crashing left and right (<code>CrashLoopBackOff</code>, my old nemesis). A bit of detective work (<code>kubectl logs...</code>) revealed the culprit: the container images for kfp weren’t built for my Mac’s ARM64 architecture.</p>
+<p>Seriously? With Apple Silicon Macs being so common now, I was surprised this was still a snag. Turns out, it’s a known thing, and getting official Kubeflow images to play nice on ARM isn’t always straightforward. Some folks have even created their own modified manifests using alternative ARM64-compatible images just to get things working <a href="https://github.com/kubeflow/manifests/issues/2745">github.com</a>. It seems deploying KFP locally on a Mac might still be a bit niche. Others trying this on Apple Silicon have found tools like <a href="https://rancherdesktop.io/">Rancher Desktop</a> helpful for managing Kubernetes locally <a href="https://fmind.medium.com/how-to-install-kubeflow-on-apple-silicon-3565db8773f3">fmind.medium.com</a>, which might be worth exploring next time.</p>
+<ul>
+<li><strong>The facepalm moment:</strong> <em>Always</em> check if your container images support your chip architecture (like ARM64)! It saves a <em>lot</em> of debugging headaches.</li>
+</ul>
+<p><strong>Day 3: Phoning a Friend (aka the Creator)</strong></p>
+<p>Hitting more snags than I anticipated, I decided to do something radical: I reached out to Aishwarya, Madrigal’s creator. Turns out, he’d deployed it smoothly on a good ol’ Linux VM in <a href="https://www.digitalocean.com/">DigitalOcean</a>. Sometimes(or oftentimes) the simplest path is the best! So, I decided to follow suit and spin up a cloud VM. Lo and behold, things went <em>much</em> smoother. Kubeflow Pipelines and the <a href="https://docs.ray.io/en/latest/cluster/kubernetes/getting-started.html">Ray cluster</a> popped up, ready for action.</p>
+<ul>
+<li><strong>The reminder:</strong> Don’t be afraid to ask! Creators are usually happy to help, and sometimes a quick chat can save hours of frustration. They’re human too!</li>
+</ul>
+<p><strong>Day 4: Helm Chart Headaches on the Cloud</strong></p>
+<p>Feeling confident with the cloud setup, I thought, “Let’s level up! How about a <em>managed</em> Kubernetes cluster on DigitalOcean?” Got the cluster running, tried deploying KFP again using Helm charts. Pods were green this time! Success? Not quite. The pipelines wouldn’t actually <em>run</em>.</p>
+<p>This time, the gremlins were hiding in the Helm chart configurations. Service accounts were missing, security policies weren’t quite right for my setup (especially around the cache-deployer component and <a href="https://min.io/">MinIO’s</a> security settings). I also realized the charts I pulled were likely bleeding-edge (<code>main</code>/<code>head</code>), so I dialed back to a stable version tag like those mentioned in the official docs <a href="https://www.kubeflow.org/docs/started/installing-kubeflow/#standalone-kubeflow-components">kubeflow.org</a> and applied the necessary tweaks.</p>
+<ul>
+<li><strong>The Helm Chart Hindsight:</strong> Helm is awesome, but don’t treat charts as magic black boxes. Peek inside, understand the defaults (especially security settings!), and be prepared to customize them for your specific cluster environment.</li>
+</ul>
+<p><strong>Day 5: MLflow’s Postgres Password Puzzle</strong></p>
+<p>Next up: integrating <a href="https://mlflow.org/">MLflow</a> for tracking experiments. Deployed it, and… authentication errors connecting to its <a href="https://www.postgresql.org/">PostgreSQL</a> database. Grrr. I triple-checked the passwords I’d set in the Helm values, they <em>looked</em> right.</p>
+<p>The issue? A classic config mismatch. The credentials defined in the Helm chart values weren’t perfectly matching what ended up in the Kubernetes secrets that the MLflow pods were actually <em>using</em>. Deployment, after re-deployments and some more re-deployment in ArgoCD tends to generate this issue. Pro-tip I learned: sometimes <a href="https://argoproj.github.io/cd/">ArgoCD’s</a> “Hard Refresh” can help shake loose weird caching issues when debugging Secret updates.</p>
+<ul>
+<li><strong>The Configuration Consistency Check:</strong> Keep your config files and your Kubernetes secrets perfectly in sync. It sounds obvious, but it’s a common tripwire! Hit that hard Refresh button!!</li>
+</ul>
+<p><strong>Bonus Round: When Libraries Don’t Play Nice</strong></p>
+<p>Just when I thought I was cruising, a Python error popped up while using <a href="https://huggingface.co/docs/transformers/index">Hugging Face’s Transformers</a> library: a weird <code>ValueError</code> mentioning <code>sph_legendre_p</code> from <a href="https://scipy.org/">SciPy</a>. This usually screams “version conflict!” Sure enough, the versions of SciPy and <a href="https://numpy.org/">NumPy</a> installed in my environment weren’t compatible cousins.</p>
+<ul>
+<li><strong>The Dependency Dance:</strong> Python environments, especially in ML, are delicate ecosystems. Keep dependencies compatible and managed carefully (using tools like <code>pip freeze &gt; requirements.txt</code> or <a href="https://python-poetry.org/">Poetry</a>/<a href="https://docs.conda.io/en/latest/">Conda</a> environments).</li>
+</ul>
+<p><strong>The Final Boss: Not Enough Juice!</strong></p>
+<p>After squashing all those bugs, I finally had everything deployed. I submitted pipeline jobs, Ray cluster tasks… and nothing happened. The jobs were accepted, but they just sat there, refusing to actually execute. The logs weren’t screaming errors anymore. What gives?</p>
+<p>Turns out, the final hurdle was the most basic: my Kubernetes cluster (the managed one) was just too small! It didn’t have enough CPU or memory resources to actually run the demanding Kubeflow and Ray workloads I was throwing at it.</p>
+<ul>
+<li><strong>The Resource Reality:</strong> Size matters! Make sure your Kubernetes cluster has enough CPU, memory, and potentially GPU resources for the workloads you plan to run. I had to scale my cluster to allow it to scale upto 9 nodes, though it only scaled till 6. Under-provisioning leads to silent failures or jobs stuck in pending limbo. Some deployment issues on platforms like k3d can sometimes be resource-related, even if it’s not immediately obvious like running out of memory.</li>
+</ul>
+<p><strong>Wrapping Up the Weekend</strong></p>
+<p>Phew! What a weekend. It was a whirlwind of debugging, learning, and tweaking. From local setup snags to cloud configuration complexities, every problem solved felt like a mini-victory and taught me something valuable about building out an MLOps platform.</p>
+<p><strong>My main takeaways?</strong></p>
+<ol type="1">
+<li><strong>Check Tool Fit:</strong> Make sure your tools (VMs, K8s distros, container images) actually work with your hardware (hello, ARM64!) and networking needs.</li>
+<li><strong>Know Your Network:</strong> Simple VMs might not cut it for complex K8s networking.</li>
+<li><strong>Helm Isn’t Magic:</strong> Understand and tweak Helm charts, especially security bits.</li>
+<li><strong>Config Consistency:</strong> Keep Helm values and K8s secrets aligned.</li>
+<li><strong>Resource Right-Sizing:</strong> Give your K8s cluster enough power to run your stuff!</li>
+</ol>
+<p>Huge thanks to the communities and developers behind <a href="https://multipass.run/">Multipass</a>, <a href="https://microk8s.io/">MicroK8s</a>, <a href="https://k3d.io/">k3d</a>, <a href="https://www.kubeflow.org/">Kubeflow</a>, <a href="https://www.ray.io/">Ray</a>, <a href="https://argoproj.github.io/cd/">ArgoCD</a>, <a href="https://min.io/">MinIO</a>, <a href="https://www.postgresql.org/">PostgreSQL</a>, <a href="https://mlflow.org/">MLflow</a>, and <a href="https://huggingface.co/docs/transformers/index">Transformers</a>. Couldn’t have even attempted this without their work!</p>
+<p>If you’ve wrestled with similar MLOps deployment dragons or have tips to share, drop a comment! Always keen to learn from others navigating this fast-moving space. Let’s keep building cool things!</p>
+
+
+</section>
+
+ ]]></description>
+  <category>mlops</category>
+  <category>red-teaming</category>
+  <category>genai</category>
+  <category>agentic-ai-testing</category>
+  <guid>https://piyush.dev/posts/2025-04-28-My-Weekend-Wrestling-Match-with-Madrigal.html</guid>
+  <pubDate>Thu, 24 Apr 2025 00:00:00 GMT</pubDate>
+  <media:content url="https://piyush.dev/posts/images/Madrigal_flight.png" medium="image" type="image/png" height="216" width="144"/>
+</item>
 <item>
   <title>The Inertia Model and Its Relevance to AI Models</title>
   <dc:creator>Piyushkumar Jain</dc:creator>
