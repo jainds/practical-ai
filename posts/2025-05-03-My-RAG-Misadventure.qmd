@@ -1,0 +1,84 @@
+---
+title: "My RAG Misadventure: Guardrails, Open Routers, Ragas"
+subtitle: "(and yeah, some failing tests!)"
+date: "2025-05-03"
+toc: true
+branch: master
+badges: true
+categories: [mlops, rag, nemo-guard-rails,ragas,langfuse, genai, agentic-ai-testing]
+image: images/Madrigal_flight.png
+hide: false
+search_exclude: false
+---
+
+title: "My Weekend Wrestling Match with Madrigal"
+description: " 'Hey, I could totally run this locally!' My machine's got the chops, so why not dive in over the weekend? "
+
+
+ I've been hacking on a RAG project for a few days, You know the one here:
+[My RAG Guardrails App Repo](https://github.com/jainds/rag-demos/tree/main/rag-guardrails-app)
+
+
+## Building on Giants (The Basic RAG Flow)
+
+ I didn't reinvent basic RAG mechanics. Chunking, embedding, vector storage – that's handled by leveraging great external tools like specialized vector DBs (Weaviate, Pinecone, etc.) and libraries (Langchain/LlamaIndex). 
+ My project focuses on orchestrating these at basic levels to demonstrate the functionality and adding layers on top.
+
+## Nemo Guardrails: The Programmable Bouncer
+
+So, NVIDIA's Nemo Guardrails is pretty central here. How does it actually work? Think of it like programmable middleware sitting around the LLM calls.
+
+**The Magic:** You define conversational "flows" in this language called Colang. Nemo intercepts the inputs (user query, retrieved context) and outputs (LLM response) and runs them through these flows.
+
+**Example Checks:** A flow might say:
+
+* "Before calling the LLM, check the user input for toxic language using this specific classification model."
+* Or "After the LLM generates a response, ensure it doesn't mention forbidden topics by scanning the text."
+
+It can even maintain state to check conversational history or ensure the LLM response aligns factually with the provided context using another LLM call. It's powerful stuff for enforcing rules beyond simple prompt instructions.
+
+(And yeah, still didn't focus much on super advanced context augmentation techniques – the main effort was elsewhere!)
+
+## ChatOpenRouter: My Flexible LLM Gateway (Battle-Tested!)
+
+This custom class was born out of wanting flexibility. Why? To easily switch LLMs via services like OpenRouter.ai.
+
+**Under the Hood:** Crucially, this class is built on Langchain's base language model class. This foundation means it plays nicely with all sorts of other Langchain-based tools and libraries down the line. 
+While the exact implementation can vary, my ChatOpenRouter class uses a library called as litellm (which is awesome for calling 100+ LLM APIs with a unified interface) and makes direct HTTP requests to the OpenRouter API endpoint. It also very easily handles mapping different provider model names (e.g., "openai/gpt-4" vs "anthropic/claude-3-opus"), manages API keys securely, and even have some basic retry logic baked in for when API calls inevitably hiccup.
+
+**The Stress Test:** I did 3000+ API call binge over just 2-3 days. That wasn't just random clicking! It involved rapidly iterating on prompts, testing different model responses via the router, debugging routing logic, and generally ensuring the abstraction didn't add significant overhead or instability. It was crucial for validating that this flexible approach was actually practical.
+
+## Ragas: Grading My RAG's Homework (With Some Red Marks!)
+
+Knowing if the RAG output is good is key. Ragas helps quantify this.
+
+**How it Works (e.g., Faithfulness):** Take the 'Faithfulness' metric. It's pretty clever – Ragas often uses another LLM call under the hood! It typically breaks down the generated answer sentence by sentence. Then, for each sentence, it asks an LLM: "Can you verify this statement based only on the following retrieved text chunks?" It counts how many statements check out. It’s a neat way to approximate fact-checking against the context.
+
+**The Reality Check:** Now, full disclosure time. Getting perfect scores across all Ragas metrics (Faithfulness, Answer Relevancy, Context Precision/Recall, etc.) is really tough, especially without ground-truth answers for everything. Right now, running the evaluations, I've definitely got some tests, particularly around metrics like Context Recall [or maybe another specific metric like Answer Correctness if applicable], that are still showing failures or scores lower than I'd like. It tells me there's still tuning needed – maybe the retrieval isn't pulling all the right info, or the prompt needs more tweaking to guide the LLM better. Work in progress!
+
+## Langfuse: My Debugging Crystal Ball
+
+Debugging RAG pipelines can feel like guesswork sometimes. Langfuse changes that.
+
+**The Integration:** Getting it running was smoother than expected. You typically import the Langfuse SDK, maybe add a decorator (`@observe()`) to your key functions (like the main query handler, the retriever call, the LLM call via ChatOpenRouter), or use their context managers.
+
+**What it Captures:** It then asynchronously ships off tons of useful data for each run: the inputs/outputs of decorated functions, timings, metadata you add (like which model was used), the prompts, the retrieved chunks, LLM responses, even the calculated Ragas scores for that specific run if you integrate it! Looking at the trace in the Langfuse UI makes spotting the exact point of failure or bottleneck way easier than `print()` statements!
+
+## Testing the Important Bits
+
+And yup, still got the standard tests: unit tests for small pieces, integration tests for the flow, and specific tests trying to fool my Nemo Guardrails.
+
+## So, What's the Real Point Here?
+
+Look, let's be clear: this project is not 'finished' software ready for primetime deployment. Like I mentioned, some of those Ragas evals highlight areas needing improvement!
+
+But the main goal all along was to create a working demonstration of how to integrate these specific, powerful tools together in a RAG context:
+
+* Wiring up Nemo Guardrails for robust, programmable safety.
+* Building and battle-testing a flexible LLM gateway like ChatOpenRouter.
+* Implementing Ragas for serious, quantitative evaluation.
+* Adding deep observability with Langfuse.
+
+It's really about showcasing that integration pattern. If you're looking to build a RAG system that goes beyond the basics and incorporates these kinds of advanced features for safety, flexibility, evaluation, and observability, then hopefully, my messy, work-in-progress repo gives you a useful starting point or some concrete ideas.
+
+Feel free to dive into the code and see how the wires connect! Let me know if you have questions.
