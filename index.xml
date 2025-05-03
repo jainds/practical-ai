@@ -9,8 +9,85 @@
 <link>https://piyush.dev/</link>
 <atom:link href="https://piyush.dev/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
-<generator>quarto-1.6.43</generator>
-<lastBuildDate>Thu, 24 Apr 2025 00:00:00 GMT</lastBuildDate>
+<generator>quarto-1.7.29</generator>
+<lastBuildDate>Sat, 03 May 2025 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>My RAG Misadventure: Guardrails, Open Routers, Ragas</title>
+  <link>https://piyush.dev/posts/2025-05-03-My-RAG-Misadventure.html</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>title: “My Weekend Wrestling Match with Madrigal” description: ” ‘Hey, I could totally run this locally!’ My machine’s got the chops, so why not dive in over the weekend? ”</p>
+<p>I’ve been hacking on a RAG project for a few days, You know the one here: <a href="https://github.com/jainds/rag-demos/tree/main/rag-guardrails-app">My RAG Guardrails App Repo</a></p>
+<section id="building-on-giants-the-basic-rag-flow" class="level2">
+<h2 class="anchored" data-anchor-id="building-on-giants-the-basic-rag-flow">Building on Giants (The Basic RAG Flow)</h2>
+<p>I didn’t reinvent basic RAG mechanics. Chunking, embedding, vector storage – that’s handled by leveraging great external tools like specialized vector DBs (Weaviate, Pinecone, etc.) and libraries (Langchain/LlamaIndex). My project focuses on orchestrating these at basic levels to demonstrate the functionality and adding layers on top.</p>
+</section>
+<section id="nemo-guardrails-the-programmable-bouncer" class="level2">
+<h2 class="anchored" data-anchor-id="nemo-guardrails-the-programmable-bouncer">Nemo Guardrails: The Programmable Bouncer</h2>
+<p>So, NVIDIA’s Nemo Guardrails is pretty central here. How does it actually work? Think of it like programmable middleware sitting around the LLM calls.</p>
+<p><strong>The Magic:</strong> You define conversational “flows” in this language called Colang. Nemo intercepts the inputs (user query, retrieved context) and outputs (LLM response) and runs them through these flows.</p>
+<p><strong>Example Checks:</strong> A flow might say:</p>
+<ul>
+<li>“Before calling the LLM, check the user input for toxic language using this specific classification model.”</li>
+<li>Or “After the LLM generates a response, ensure it doesn’t mention forbidden topics by scanning the text.”</li>
+</ul>
+<p>It can even maintain state to check conversational history or ensure the LLM response aligns factually with the provided context using another LLM call. It’s powerful stuff for enforcing rules beyond simple prompt instructions.</p>
+<p>(And yeah, still didn’t focus much on super advanced context augmentation techniques – the main effort was elsewhere!)</p>
+</section>
+<section id="chatopenrouter-my-flexible-llm-gateway-battle-tested" class="level2">
+<h2 class="anchored" data-anchor-id="chatopenrouter-my-flexible-llm-gateway-battle-tested">ChatOpenRouter: My Flexible LLM Gateway (Battle-Tested!)</h2>
+<p>This custom class was born out of wanting flexibility. Why? To easily switch LLMs via services like OpenRouter.ai.</p>
+<p><strong>Under the Hood:</strong> Crucially, this class is built on Langchain’s base language model class. This foundation means it plays nicely with all sorts of other Langchain-based tools and libraries down the line. While the exact implementation can vary, my ChatOpenRouter class uses a library called as litellm (which is awesome for calling 100+ LLM APIs with a unified interface) and makes direct HTTP requests to the OpenRouter API endpoint. It also very easily handles mapping different provider model names (e.g., “openai/gpt-4” vs “anthropic/claude-3-opus”), manages API keys securely, and even have some basic retry logic baked in for when API calls inevitably hiccup.</p>
+<p><strong>The Stress Test:</strong> I did 3000+ API call binge over just 2-3 days. That wasn’t just random clicking! It involved rapidly iterating on prompts, testing different model responses via the router, debugging routing logic, and generally ensuring the abstraction didn’t add significant overhead or instability. It was crucial for validating that this flexible approach was actually practical.</p>
+</section>
+<section id="ragas-grading-my-rags-homework-with-some-red-marks" class="level2">
+<h2 class="anchored" data-anchor-id="ragas-grading-my-rags-homework-with-some-red-marks">Ragas: Grading My RAG’s Homework (With Some Red Marks!)</h2>
+<p>Knowing if the RAG output is good is key. Ragas helps quantify this.</p>
+<p><strong>How it Works (e.g., Faithfulness):</strong> Take the ‘Faithfulness’ metric. It’s pretty clever – Ragas often uses another LLM call under the hood! It typically breaks down the generated answer sentence by sentence. Then, for each sentence, it asks an LLM: “Can you verify this statement based only on the following retrieved text chunks?” It counts how many statements check out. It’s a neat way to approximate fact-checking against the context.</p>
+<p><strong>The Reality Check:</strong> Now, full disclosure time. Getting perfect scores across all Ragas metrics (Faithfulness, Answer Relevancy, Context Precision/Recall, etc.) is really tough, especially without ground-truth answers for everything. Right now, running the evaluations, I’ve definitely got some tests, particularly around metrics like Context Recall [or maybe another specific metric like Answer Correctness if applicable], that are still showing failures or scores lower than I’d like. It tells me there’s still tuning needed – maybe the retrieval isn’t pulling all the right info, or the prompt needs more tweaking to guide the LLM better. Work in progress!</p>
+</section>
+<section id="langfuse-my-debugging-crystal-ball" class="level2">
+<h2 class="anchored" data-anchor-id="langfuse-my-debugging-crystal-ball">Langfuse: My Debugging Crystal Ball</h2>
+<p>Debugging RAG pipelines can feel like guesswork sometimes. Langfuse changes that.</p>
+<p><strong>The Integration:</strong> Getting it running was smoother than expected. You typically import the Langfuse SDK, maybe add a decorator (<code>@observe()</code>) to your key functions (like the main query handler, the retriever call, the LLM call via ChatOpenRouter), or use their context managers.</p>
+<p><strong>What it Captures:</strong> It then asynchronously ships off tons of useful data for each run: the inputs/outputs of decorated functions, timings, metadata you add (like which model was used), the prompts, the retrieved chunks, LLM responses, even the calculated Ragas scores for that specific run if you integrate it! Looking at the trace in the Langfuse UI makes spotting the exact point of failure or bottleneck way easier than <code>print()</code> statements!</p>
+</section>
+<section id="testing-the-important-bits" class="level2">
+<h2 class="anchored" data-anchor-id="testing-the-important-bits">Testing the Important Bits</h2>
+<p>And yup, still got the standard tests: unit tests for small pieces, integration tests for the flow, and specific tests trying to fool my Nemo Guardrails.</p>
+</section>
+<section id="so-whats-the-real-point-here" class="level2">
+<h2 class="anchored" data-anchor-id="so-whats-the-real-point-here">So, What’s the Real Point Here?</h2>
+<p>Look, let’s be clear: this project is not ‘finished’ software ready for primetime deployment. Like I mentioned, some of those Ragas evals highlight areas needing improvement!</p>
+<p>But the main goal all along was to create a working demonstration of how to integrate these specific, powerful tools together in a RAG context:</p>
+<ul>
+<li>Wiring up Nemo Guardrails for robust, programmable safety.</li>
+<li>Building and battle-testing a flexible LLM gateway like ChatOpenRouter.</li>
+<li>Implementing Ragas for serious, quantitative evaluation.</li>
+<li>Adding deep observability with Langfuse.</li>
+</ul>
+<p>It’s really about showcasing that integration pattern. If you’re looking to build a RAG system that goes beyond the basics and incorporates these kinds of advanced features for safety, flexibility, evaluation, and observability, then hopefully, my messy, work-in-progress repo gives you a useful starting point or some concrete ideas.</p>
+<p>Feel free to dive into the code and see how the wires connect! Let me know if you have questions.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>mlops</category>
+  <category>rag</category>
+  <category>nemo-guard-rails</category>
+  <category>ragas</category>
+  <category>langfuse</category>
+  <category>genai</category>
+  <category>agentic-ai-testing</category>
+  <guid>https://piyush.dev/posts/2025-05-03-My-RAG-Misadventure.html</guid>
+  <pubDate>Sat, 03 May 2025 00:00:00 GMT</pubDate>
+  <media:content url="https://piyush.dev/posts/images/Madrigal_flight.png" medium="image" type="image/png" height="216" width="144"/>
+</item>
 <item>
   <title>My Weekend Wrestling Match with Madrigal</title>
   <link>https://piyush.dev/posts/2025-04-28-My-Weekend-Wrestling-Match-with-Madrigal.html</link>
