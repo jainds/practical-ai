@@ -9,7 +9,7 @@
 <link>https://piyush.dev/</link>
 <atom:link href="https://piyush.dev/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
-<generator>quarto-1.7.29</generator>
+<generator>quarto-1.7.30</generator>
 <lastBuildDate>Sat, 03 May 2025 00:00:00 GMT</lastBuildDate>
 <item>
   <title>My RAG Misadventure: Guardrails, Open Routers, Ragas</title>
@@ -20,7 +20,6 @@
 
 
 
-<p>title: “My Weekend Wrestling Match with Madrigal” description: ” ‘Hey, I could totally run this locally!’ My machine’s got the chops, so why not dive in over the weekend? ”</p>
 <p>I’ve been hacking on a RAG project for a few days, You know the one here: <a href="https://github.com/jainds/rag-demos/tree/main/rag-guardrails-app">My RAG Guardrails App Repo</a></p>
 <section id="building-on-giants-the-basic-rag-flow" class="level2">
 <h2 class="anchored" data-anchor-id="building-on-giants-the-basic-rag-flow">Building on Giants (The Basic RAG Flow)</h2>
@@ -86,7 +85,7 @@
   <category>agentic-ai-testing</category>
   <guid>https://piyush.dev/posts/2025-05-03-My-RAG-Misadventure.html</guid>
   <pubDate>Sat, 03 May 2025 00:00:00 GMT</pubDate>
-  <media:content url="https://piyush.dev/posts/images/Madrigal_flight.png" medium="image" type="image/png" height="216" width="144"/>
+  <media:content url="https://piyush.dev/images/20250506_1918_Robot Wiring Future_simple_compose_01jtjn1d2xf2pt4190v973yx0q.png" medium="image" type="image/png"/>
 </item>
 <item>
   <title>My Weekend Wrestling Match with Madrigal</title>
