@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Piyushkumar Jain">
-<meta name="dcterms.date" content="2025-04-03">
+<meta name="dcterms.date" content="2025-05-07">
 
-<title>The Inertia Model and Its Relevance to AI Models – Piyush’s Blog</title>
+<title>Mysterious Databricks Bundle, DBT, GitHub Actions, and a Misleading Error – Piyush’s Blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,27 +21,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-e36ce5c26c48eccda62d8cde5e438854.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="../../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-787b081495b77092d00b4aa3ae96f8b0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -84,17 +118,17 @@ ul.task-list li input[type="checkbox"] {
 </script>
 
 
-<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Piyush’s Blog</span>
     </a>
   </div>
@@ -105,7 +139,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -128,9 +162,15 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">The Inertia Model and Its Relevance to AI Models</h1>
+      <h1 class="title">Mysterious Databricks Bundle, DBT, GitHub Actions, and a Misleading Error</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">books</div>
+                <div class="quarto-category">mlops</div>
+                <div class="quarto-category">databricks</div>
+                <div class="quarto-category">dbt</div>
+                <div class="quarto-category">github-actions</div>
+                <div class="quarto-category">cicd</div>
+                <div class="quarto-category">terraform</div>
+                <div class="quarto-category">troubleshooting</div>
               </div>
                   </div>
   </div>
@@ -138,17 +178,11 @@ ul.task-list li input[type="checkbox"] {
   
   <div class="quarto-title-meta">
 
-      <div>
-      <div class="quarto-title-meta-heading">Author</div>
-      <div class="quarto-title-meta-contents">
-               <p>Piyushkumar Jain </p>
-            </div>
-    </div>
       
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">April 3, 2025</p>
+        <p class="date">May 7, 2025</p>
       </div>
     </div>
     
@@ -159,7 +193,18 @@ ul.task-list li input[type="checkbox"] {
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-error-that-sent-me-down-a-rabbit-hole" id="toc-the-error-that-sent-me-down-a-rabbit-hole" class="nav-link active" data-scroll-target="#the-error-that-sent-me-down-a-rabbit-hole">The Error That Sent Me Down a Rabbit Hole</a></li>
+  <li><a href="#the-wild-goose-chase-aka-debugging-steps" id="toc-the-wild-goose-chase-aka-debugging-steps" class="nav-link" data-scroll-target="#the-wild-goose-chase-aka-debugging-steps">The Wild Goose Chase (aka Debugging Steps)</a></li>
+  <li><a href="#the-aha-moment-or-more-like-are-you-kidding-me" id="toc-the-aha-moment-or-more-like-are-you-kidding-me" class="nav-link" data-scroll-target="#the-aha-moment-or-more-like-are-you-kidding-me">The “Aha!” Moment (Or More Like “Are You Kidding Me?!”)</a></li>
+  <li><a href="#the-moral-of-the-story" id="toc-the-moral-of-the-story" class="nav-link" data-scroll-target="#the-moral-of-the-story">The Moral of the Story</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
@@ -167,14 +212,75 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p>The Inertia Model, as described in The Great Mental Models series, explains how objects—or systems—tend to resist change due to existing momentum or stagnation. In physics, inertia keeps a moving object in motion unless acted upon by an external force. The same principle applies to decision-making, businesses, and even artificial intelligence models.</p>
-<p>AI models, once trained, exhibit a form of inertia. They rely on the data they were trained on and the assumptions built into their architectures. Without intentional updates or external intervention, they continue making predictions based on historical patterns, even when those patterns become outdated. For example, a recommendation algorithm trained on past user behavior may struggle to adapt to sudden shifts in preferences unless it is retrained with fresh data. Another example of inertia, traditional businesses like banking and insurance continue to struggle in adopting latest AI technologies in their core areas.</p>
-<p>Another aspect of inertia in AI is model bias. If an AI system has learned biased associations from historical data, that bias will persist unless corrective measures—such as better data curation or active bias mitigation—are introduced. The resistance to change mirrors human cognitive inertia, where existing beliefs and habits are difficult to alter without strong external stimuli.</p>
-<p>Applications and Decision making, especially in relation to AI, chimes well with this model. AI models/applications that are incrementally increasing/improving certain parts of a business process are leveraging existing momentum. Comparatively easier to explain the significance, value and cost to the business. It aligns well with the direction and movement of the organization and finds easier/wider acceptance in the organisation. Consider an AI model/application that is fundamentally disrupting the existing process or probably making it altogether redundant; they require significantly more escape velocity (so to speak, in cost, explanation, value) to achieve the desired results and hardly see the light of the day.</p>
-<p>In a broader sense, recognizing inertia in AI systems helps researchers and practitioners understand the importance of continuous learning and adaptation. Just as overcoming inertia in human behavior requires conscious effort, ensuring AI models remain effective and relevant requires ongoing intervention, retraining, and validation.</p>
-<p>By applying the Inertia Model, we can better anticipate challenges in AI development and deployment, ensuring that models do not stagnate or reinforce outdated patterns, but instead evolve with the real-world data they interact with.</p>
+<p>You know how some days you just bang your head against the wall for hours over something that turns out to be deceptively simple? Yeah, that was me.</p>
+<p>I spent a <em>whole day</em> wrestling with a <code>databricks.yml</code> file. The mission, should I choose to accept it (and I did, albeit unknowingly at the start of the day), was to get our Databricks Asset Bundle – which was all nicely configured to build, run, and test our DBT models – to play nice with a GitHub Actions pipeline.</p>
+<p>We’d already done our homework, or so I thought. The bundle was validated, we did a test deployment using the local Databricks CLI, and everything looked golden. The goal was CI/CD automation: push code, and let GitHub Actions handle the deployment to Databricks. Standard MLOps, data engineering goodness. You can find more about <a href="https://docs.databricks.com/en/dev-tools/bundles/index.html">Databricks Asset Bundles here</a> – they’re Databricks’ way of packaging up all your project files. And <a href="https://www.getdbt.com/">DBT (Data Build Tool)</a>, of course, is awesome for transforming data in your warehouse.</p>
+<section id="the-error-that-sent-me-down-a-rabbit-hole" class="level3">
+<h3 class="anchored" data-anchor-id="the-error-that-sent-me-down-a-rabbit-hole">The Error That Sent Me Down a Rabbit Hole</h3>
+<p>Alright, so let’s get to the villain of our story. Every time the GitHub Action kicked off the deployment, we’d get smacked with this error from the Databricks CLI:</p>
+<pre class="shell"><code>186  Starting resource deployment
+187 Error: terraform apply: exit status 1
+188 Error: cannot create job: An environment is required for serverless task dbt_marts. Please define one using `environments` and `environment_key`.For more details, please refer to the API documentation at [https://docs.databricks.com/api/workspace/jobs/create](https://docs.databricks.com/api/workspace/jobs/create)
+189   with databricks_job.dbt_marts_job,
+190   on bundle.tf.json line 39, in resource.databricks_job.dbt_marts_job:
+191   39:         }</code></pre>
+<p>Now, if you’ve dabbled with Databricks Bundles, you’ll know they often compile down to Terraform under the hood for the deployment part. So, seeing <code>terraform apply: exit status 1</code> and the reference to <code>bundle.tf.json</code> immediately makes you think, “Ah, a Terraform issue!” The message itself, “An environment is required for serverless task dbt_marts. Please define one using <code>environments</code> and <code>environment_key</code>,” seems pretty darn explicit, doesn’t it? It’s pointing directly at the job definition for a task named <code>dbt_marts</code>.</p>
+<p>My brain went straight to the <code>databricks.yml</code> file. This is where you define your resources, jobs, and, importantly, <code>environments</code> for things like serverless compute.</p>
+</section>
+<section id="the-wild-goose-chase-aka-debugging-steps" class="level3">
+<h3 class="anchored" data-anchor-id="the-wild-goose-chase-aka-debugging-steps">The Wild Goose Chase (aka Debugging Steps)</h3>
+<p>Based on that error, we dove headfirst into troubleshooting the <code>databricks.yml</code> and the Terraform configuration:</p>
+<ol type="1">
+<li><strong>Checked <code>environments</code></strong>: We meticulously ensured the <code>environments</code> block in our <code>databricks.yml</code> was correctly populated. We double-checked, triple-checked. I had my lunch with environment and environment keys today.</li>
+<li><strong>Name Game</strong>: You know how sometimes special characters or reserved words can throw a wrench in the works? We started renaming things – jobs, environments – just in case some obscure naming convention was tripping us up.</li>
+<li><strong>CLI Update Dance</strong>: “Maybe it’s an outdated Databricks CLI version?” I mused. So, we updated the CLI on the GitHub Actions runner. Always a good sanity check, though it didn’t solve this particular mystery. You can always find the latest CLI info <a href="https://docs.databricks.com/en/dev-tools/cli/index.html">here</a>.</li>
+<li><strong>Inlining for Simplicity</strong>: Our bundle was structured with resources defined in separate files, referenced in the main <code>databricks.yml</code>. To rule out any issues with how the bundle was stitching these files together during the <code>databricks bundle deploy</code> (which internally runs <code>terraform apply</code>), we even tried moving <em>everything</em> directly into the <code>databricks.yml</code>. Desperate times, right?</li>
+</ol>
+<p>Let me tell you, after all that, the error message remained stubbornly the same. We were barking up the completely wrong tree, led astray by what seemed like a very specific error message from the Databricks CLI. It felt like the CLI was gaslighting me!</p>
+</section>
+<section id="the-aha-moment-or-more-like-are-you-kidding-me" class="level3">
+<h3 class="anchored" data-anchor-id="the-aha-moment-or-more-like-are-you-kidding-me">The “Aha!” Moment (Or More Like “Are You Kidding Me?!”)</h3>
+<p>So, what was the actual culprit after this day-long debugging marathon? Drumroll, please…</p>
+<p><strong>We needed to explicitly <code>pip install dbt-databricks</code>, <code>dbt-core</code>, and (for our setup) <code>dbt-coverage</code> in the GitHub Actions workflow <em>before</em> running the bundle deployment.</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example snippet for your GitHub Actions workflow file</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># .github/workflows/your-workflow.yml</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ...</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">deploy</span><span class="kw">:</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v4</span><span class="co"> # Or your preferred version</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Set up Python</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/setup-python@v5</span><span class="co"> # Or your preferred version</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">python-version</span><span class="kw">:</span><span class="at"> </span><span class="st">'3.9'</span><span class="co"> # Or your dbt compatible version</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install DBT dependencies</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>          pip install dbt-databricks dbt-core dbt-coverage </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>          # Add any other dbt adapters or python dependencies your project needs</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy Databricks Bundle</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">env</span><span class="kw">:</span><span class="co"> # Make sure to set your Databricks host and token</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">DATABRICKS_HOST</span><span class="kw">:</span><span class="at"> ${{ secrets.DATABRICKS_HOST }}</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">DATABRICKS_TOKEN</span><span class="kw">:</span><span class="at"> ${{ secrets.DATABRICKS_TOKEN }}</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>          databricks bundle deploy -t your_target_workspace # Replace with your target</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co"># ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Yes. That. Was. It.</p>
+<p>The GitHub Actions runner, being a fresh environment each time, didn’t have the necessary DBT Python packages installed. The Databricks CLI, when it tried to parse or validate the DBT tasks within the bundle, presumably couldn’t find the <code>dbt</code> command or the necessary adapter. But instead of saying something helpful like, “Hey, I can’t find <code>dbt</code> or <code>dbt-databricks</code>, is it installed and in your PATH?”, it threw that misleading error about missing environments and <code>environment_key</code> for the serverless job.</p>
+<p>It seems the underlying tooling assumed DBT was present and, when it wasn’t, the error cascaded into something that looked like a configuration problem within the bundle definition itself.</p>
+</section>
+<section id="the-moral-of-the-story" class="level2">
+<h2 class="anchored" data-anchor-id="the-moral-of-the-story">The Moral of the Story</h2>
+<p>Honestly, the only reason we burned an entire day on what should have been a straightforward YAML debugging session was because the error message sent us on a wild goose chase. The CLI was essentially saying, “I can’t create this job because your environment and environment keys are missing,” when the real issue was, “I don’t even know what a dbt is because the Python packages aren’t here!”</p>
+<p>This whole ordeal really underscores a point: when you’re working with tools that are rapidly evolving or are wrappers around other tools (like the Databricks CLI orchestrating Terraform and interacting with DBT), sometimes the error messages aren’t as mature or direct as they could be. A production-ready tool, ideally, should give you error stack traces that point you closer to the actual root cause.</p>
+<p>So, if you find yourself in a similar boat, scratching your head over a Databricks bundle deployment failing in CI/CD with weird Terraform-esque errors related to job definitions, especially when DBT is involved: double-check that your DBT dependencies are explicitly installed in your pipeline environment!</p>
+<p>Hopefully, sharing this saves someone else the headache.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

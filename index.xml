@@ -10,7 +10,264 @@
 <atom:link href="https://piyush.dev/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.7.30</generator>
-<lastBuildDate>Sat, 03 May 2025 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Wed, 07 May 2025 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Mysterious Databricks Bundle, DBT, GitHub Actions, and a Misleading Error</title>
+  <link>https://piyush.dev/posts/2025-05-07-Databricks-CLI-Github-Actions.html</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>You know how some days you just bang your head against the wall for hours over something that turns out to be deceptively simple? Yeah, that was me.</p>
+<p>I spent a <em>whole day</em> wrestling with a <code>databricks.yml</code> file. The mission, should I choose to accept it (and I did, albeit unknowingly at the start of the day), was to get our Databricks Asset Bundle – which was all nicely configured to build, run, and test our DBT models – to play nice with a GitHub Actions pipeline.</p>
+<p>We’d already done our homework, or so I thought. The bundle was validated, we did a test deployment using the local Databricks CLI, and everything looked golden. The goal was CI/CD automation: push code, and let GitHub Actions handle the deployment to Databricks. Standard MLOps, data engineering goodness. You can find more about <a href="https://docs.databricks.com/en/dev-tools/bundles/index.html">Databricks Asset Bundles here</a> – they’re Databricks’ way of packaging up all your project files. And <a href="https://www.getdbt.com/">DBT (Data Build Tool)</a>, of course, is awesome for transforming data in your warehouse.</p>
+<section id="the-error-that-sent-me-down-a-rabbit-hole" class="level3">
+<h3 class="anchored" data-anchor-id="the-error-that-sent-me-down-a-rabbit-hole">The Error That Sent Me Down a Rabbit Hole</h3>
+<p>Alright, so let’s get to the villain of our story. Every time the GitHub Action kicked off the deployment, we’d get smacked with this error from the Databricks CLI:</p>
+<pre class="shell"><code>186  Starting resource deployment
+187 Error: terraform apply: exit status 1
+188 Error: cannot create job: An environment is required for serverless task dbt_marts. Please define one using `environments` and `environment_key`.For more details, please refer to the API documentation at [https://docs.databricks.com/api/workspace/jobs/create](https://docs.databricks.com/api/workspace/jobs/create)
+189   with databricks_job.dbt_marts_job,
+190   on bundle.tf.json line 39, in resource.databricks_job.dbt_marts_job:
+191   39:         }</code></pre>
+<p>Now, if you’ve dabbled with Databricks Bundles, you’ll know they often compile down to Terraform under the hood for the deployment part. So, seeing <code>terraform apply: exit status 1</code> and the reference to <code>bundle.tf.json</code> immediately makes you think, “Ah, a Terraform issue!” The message itself, “An environment is required for serverless task dbt_marts. Please define one using <code>environments</code> and <code>environment_key</code>,” seems pretty darn explicit, doesn’t it? It’s pointing directly at the job definition for a task named <code>dbt_marts</code>.</p>
+<p>My brain went straight to the <code>databricks.yml</code> file. This is where you define your resources, jobs, and, importantly, <code>environments</code> for things like serverless compute.</p>
+</section>
+<section id="the-wild-goose-chase-aka-debugging-steps" class="level3">
+<h3 class="anchored" data-anchor-id="the-wild-goose-chase-aka-debugging-steps">The Wild Goose Chase (aka Debugging Steps)</h3>
+<p>Based on that error, we dove headfirst into troubleshooting the <code>databricks.yml</code> and the Terraform configuration:</p>
+<ol type="1">
+<li><strong>Checked <code>environments</code></strong>: We meticulously ensured the <code>environments</code> block in our <code>databricks.yml</code> was correctly populated. We double-checked, triple-checked. I had my lunch with environment and environment keys today.</li>
+<li><strong>Name Game</strong>: You know how sometimes special characters or reserved words can throw a wrench in the works? We started renaming things – jobs, environments – just in case some obscure naming convention was tripping us up.</li>
+<li><strong>CLI Update Dance</strong>: “Maybe it’s an outdated Databricks CLI version?” I mused. So, we updated the CLI on the GitHub Actions runner. Always a good sanity check, though it didn’t solve this particular mystery. You can always find the latest CLI info <a href="https://docs.databricks.com/en/dev-tools/cli/index.html">here</a>.</li>
+<li><strong>Inlining for Simplicity</strong>: Our bundle was structured with resources defined in separate files, referenced in the main <code>databricks.yml</code>. To rule out any issues with how the bundle was stitching these files together during the <code>databricks bundle deploy</code> (which internally runs <code>terraform apply</code>), we even tried moving <em>everything</em> directly into the <code>databricks.yml</code>. Desperate times, right?</li>
+</ol>
+<p>Let me tell you, after all that, the error message remained stubbornly the same. We were barking up the completely wrong tree, led astray by what seemed like a very specific error message from the Databricks CLI. It felt like the CLI was gaslighting me!</p>
+</section>
+<section id="the-aha-moment-or-more-like-are-you-kidding-me" class="level3">
+<h3 class="anchored" data-anchor-id="the-aha-moment-or-more-like-are-you-kidding-me">The “Aha!” Moment (Or More Like “Are You Kidding Me?!”)</h3>
+<p>So, what was the actual culprit after this day-long debugging marathon? Drumroll, please…</p>
+<p><strong>We needed to explicitly <code>pip install dbt-databricks</code>, <code>dbt-core</code>, and (for our setup) <code>dbt-coverage</code> in the GitHub Actions workflow <em>before</em> running the bundle deployment.</strong></p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Example snippet for your GitHub Actions workflow file</span></span>
+<span id="cb2-2"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># .github/workflows/your-workflow.yml</span></span>
+<span id="cb2-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># ...</span></span>
+<span id="cb2-4"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">jobs</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb2-5"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">deploy</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb2-6"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">runs-on</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> ubuntu-latest</span></span>
+<span id="cb2-7"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">steps</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb2-8"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">uses</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> actions/checkout@v4</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # Or your preferred version</span></span>
+<span id="cb2-9"></span>
+<span id="cb2-10"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">name</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> Set up Python</span></span>
+<span id="cb2-11"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">        </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">uses</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> actions/setup-python@v5</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # Or your preferred version</span></span>
+<span id="cb2-12"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">        </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">with</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb2-13"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">          </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">python-version</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'3.9'</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # Or your dbt compatible version</span></span>
+<span id="cb2-14"></span>
+<span id="cb2-15"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">name</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> Install DBT dependencies</span></span>
+<span id="cb2-16"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">        run</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">: </span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">|</span></span>
+<span id="cb2-17">          pip install dbt-databricks dbt-core dbt-coverage </span>
+<span id="cb2-18">          # Add any other dbt adapters or python dependencies your project needs</span>
+<span id="cb2-19"></span>
+<span id="cb2-20"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">name</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> Deploy Databricks Bundle</span></span>
+<span id="cb2-21"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">        </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">env</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # Make sure to set your Databricks host and token</span></span>
+<span id="cb2-22"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">          </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">DATABRICKS_HOST</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> ${{ secrets.DATABRICKS_HOST }}</span></span>
+<span id="cb2-23"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">          </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">DATABRICKS_TOKEN</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> ${{ secrets.DATABRICKS_TOKEN }}</span></span>
+<span id="cb2-24"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">        run</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">: </span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">|</span></span>
+<span id="cb2-25">          databricks bundle deploy -t your_target_workspace # Replace with your target</span>
+<span id="cb2-26"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># ...</span></span></code></pre></div>
+<p>Yes. That. Was. It.</p>
+<p>The GitHub Actions runner, being a fresh environment each time, didn’t have the necessary DBT Python packages installed. The Databricks CLI, when it tried to parse or validate the DBT tasks within the bundle, presumably couldn’t find the <code>dbt</code> command or the necessary adapter. But instead of saying something helpful like, “Hey, I can’t find <code>dbt</code> or <code>dbt-databricks</code>, is it installed and in your PATH?”, it threw that misleading error about missing environments and <code>environment_key</code> for the serverless job.</p>
+<p>It seems the underlying tooling assumed DBT was present and, when it wasn’t, the error cascaded into something that looked like a configuration problem within the bundle definition itself.</p>
+</section>
+<section id="the-moral-of-the-story" class="level2">
+<h2 class="anchored" data-anchor-id="the-moral-of-the-story">The Moral of the Story</h2>
+<p>Honestly, the only reason we burned an entire day on what should have been a straightforward YAML debugging session was because the error message sent us on a wild goose chase. The CLI was essentially saying, “I can’t create this job because your environment and environment keys are missing,” when the real issue was, “I don’t even know what a dbt is because the Python packages aren’t here!”</p>
+<p>This whole ordeal really underscores a point: when you’re working with tools that are rapidly evolving or are wrappers around other tools (like the Databricks CLI orchestrating Terraform and interacting with DBT), sometimes the error messages aren’t as mature or direct as they could be. A production-ready tool, ideally, should give you error stack traces that point you closer to the actual root cause.</p>
+<p>So, if you find yourself in a similar boat, scratching your head over a Databricks bundle deployment failing in CI/CD with weird Terraform-esque errors related to job definitions, especially when DBT is involved: double-check that your DBT dependencies are explicitly installed in your pipeline environment!</p>
+<p>Hopefully, sharing this saves someone else the headache.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>mlops</category>
+  <category>databricks</category>
+  <category>dbt</category>
+  <category>github-actions</category>
+  <category>cicd</category>
+  <category>terraform</category>
+  <category>troubleshooting</category>
+  <guid>https://piyush.dev/posts/2025-05-07-Databricks-CLI-Github-Actions.html</guid>
+  <pubDate>Wed, 07 May 2025 00:00:00 GMT</pubDate>
+  <media:content url="https://piyush.dev/images/dbx_github_dbt.webp" medium="image" type="image/webp"/>
+</item>
 <item>
   <title>My RAG Misadventure: Guardrails, Open Routers, Ragas</title>
   <link>https://piyush.dev/posts/2025-05-03-My-RAG-Misadventure.html</link>
