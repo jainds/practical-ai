@@ -22,5 +22,14 @@
   },
   "about.qmd": {
     "about.html": "a873b41e"
+  },
+  "posts/2025-04-28-My-Weekend-Wrestling-Match-with-Madrigal.qmd": {
+    "2025-04-28-My-Weekend-Wrestling-Match-with-Madrigal.html": "4a90e2f2"
+  },
+  "posts/2025-05-03-My-RAG-Misadventure.qmd": {
+    "2025-05-03-My-RAG-Misadventure.html": "f5e5dbce"
+  },
+  "posts/2025-05-07-Databricks-CLI-Github-Actions.qmd": {
+    "2025-05-07-Databricks-CLI-Github-Actions.html": "41df8fed"
   }
 }
