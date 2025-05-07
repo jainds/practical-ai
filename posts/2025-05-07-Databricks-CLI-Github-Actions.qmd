@@ -5,7 +5,7 @@ toc: true
 branch: master 
 badges: true
 categories: [mlops, databricks, dbt, github-actions, cicd, terraform, troubleshooting]
-image: /images/dbx_github_dbt.webp
+image: images/dbx_github_dbt.webp
 hide: false
 search_exclude: false
 code-block-bg: true

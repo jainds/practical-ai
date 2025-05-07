@@ -6,7 +6,7 @@ toc: true
 branch: master
 badges: true
 categories: [mlops, rag, nemo-guard-rails,ragas,langfuse, genai, agentic-ai-testing]
-image: /images/20250506_1918_Robot Wiring Future_simple_compose_01jtjn1d2xf2pt4190v973yx0q.png
+image: images/20250506_1918_Robot Wiring Future_simple_compose_01jtjn1d2xf2pt4190v973yx0q.png
 hide: false
 search_exclude: false
 ---
